@@ -10,12 +10,22 @@ function register_my_menus() {
 add_action( 'init', 'register_my_menus' );
 
 // Default Sidebar
-function atlas_sidebar() {
+function atlas_sidebars() {
     register_sidebar(
         array (
-            'name' => __( 'Custom', 'atlas_sidebar' ),
+            'name' => __( 'Main sidebar', 'atlas_sidebar' ),
             'id' => 'atlas_sidebar-1',
-            'description' => __( 'Custom Sidebar', 'atlas_sidebar' ),
+            'before_widget' => '<div class="widget content">',
+            'after_widget' => "</div>",
+            'before_title' => '<h3 class="title">',
+            'after_title' => '</h3>',
+        )
+    );
+	
+	register_sidebar(
+        array (
+            'name' => __( 'Post sidebar', 'atlas_posts_sidebar' ),
+            'id' => 'atlas_posts_sidebar-1',
             'before_widget' => '<div class="widget content">',
             'after_widget' => "</div>",
             'before_title' => '<h3 class="title">',
@@ -23,7 +33,7 @@ function atlas_sidebar() {
         )
     );
 }
-add_action( 'widgets_init', 'atlas_sidebar' );
+add_action( 'widgets_init', 'atlas_sidebars' );
 
 /*-------------------------------------------------------
 	TWEAKS
@@ -45,16 +55,25 @@ function remove_menus(){
 add_action( 'admin_menu', 'remove_menus');
 
 // include tiny MCE editor css
+add_editor_style('tinymce.css');
 function add_editor_styles() {add_editor_style( 'tinymce.css' );}
 add_action( 'admin_init', 'add_editor_styles' );
+function plugin_mce_css( $mce_css ) {
+	if ( !empty( $mce_css ) )
+		$mce_css .= ',';
+		$mce_css .= ('/wp-content/themes/atlas/tinymce.css');
+		return $mce_css;
+	}
+add_filter( 'mce_css', 'plugin_mce_css' );
 
 // remove admin bar
 add_filter('show_admin_bar','__return_false');
 
 // addition image sizes
-add_image_size( '120-thumb', 120, 120, false);
-add_image_size( '200-thumb', 200, 200, false);
-add_image_size( '500-thumb', 500, 500, false);
+add_image_size( '120-thumb', 120, 120);
+add_image_size( '300-thumb', 300, 300);
+add_image_size( '640-thumb', 640, 640, true, array("left", "top"));
+add_image_size( 'hero-image', 2000, 640, true, array("center", "top"));
 
 // remove welcome display that encourages users to break their perfectly good site
 remove_action('welcome_panel', 'wp_welcome_panel');
@@ -109,6 +128,32 @@ function atlas_add_rewrites($content) {
 		'img/(.*)' => 'wp-content/themes/'.$theme_name.'/img/$1',
 	);
 	$wp_rewrite->non_wp_rules += $atlas_new_non_wp_rules;
+}
+
+// add openskull.css into admin area
+function admin_style() {
+	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/grid.css');
+}
+add_action('admin_enqueue_scripts', 'admin_style', 9999);
+
+// Add ACF Options
+if( function_exists('acf_add_options_page') ) {
+	acf_add_options_page(array(
+		'page_title' 	=> 'Theme General Settings',
+		'menu_title'	=> 'Theme Settings',
+		'menu_slug' 	=> 'theme-general-settings',
+	));
+}
+
+function getYoutubeID($link) {
+	$matches = array();
+	
+	preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu‌​\.be\/|youtube\.com\‌​/(?:(?:watch)?\?(?:.‌​*&)?v(?:i)?=|(?:embe‌​d|v|vi|user)\/))([^\‌​?#&\"'>]+)/", $url, $matches);
+	
+	return $matches[1];
+}
+function getVimeoID($link) {
+	return substr(parse_url($link, PHP_URL_PATH), 1);
 }
 
 ?>

@@ -1,0 +1,32 @@
+#Project our wp-config.php file
+<files wp-config.php>
+order allow,deny
+deny from all
+</files>
+
+# Protect GLOBALS and _REQUEST from injection
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+RewriteCond %{QUERY_STRING} GLOBALS(=|[|%[0-9A-Z]{0,2}) [OR]
+RewriteCond %{QUERY_STRING} _REQUEST(=|[|%[0-9A-Z]{0,2})
+RewriteRule ^(.*)$ index.php [F,L]
+
+#custom rewrite to shorthand paths to mask wordpress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+RewriteRule ^img/(.*) /wp-content/themes/atlas/img/$1 [QSA,L]
+RewriteRule ^css/(.*) /wp-content/themes/atlas/css/$1 [QSA,L]
+RewriteRule ^js/(.*) /wp-content/themes/atlas/js/$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+
+</IfModule>
+
+# BEGIN WordPress
+# END WordPress
