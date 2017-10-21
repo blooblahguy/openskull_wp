@@ -47,6 +47,7 @@ function remove_menus(){
 	}
 	remove_menu_page('cptui_manage_post_types');
 	remove_menu_page('themes.php'); // appearance
+	remove_menu_page('edit-comments.php'); // comments
 	// move the useful parts of appearance out
 	add_menu_page("Widgets", "Widgets", "administrator", "widgets.php", '', 'dashicons-welcome-widgets-menus', 21);
 	add_menu_page("Menus", "Menus", "administrator", "nav-menus.php", '', 'dashicons-menu', 20);
@@ -154,6 +155,59 @@ function getYoutubeID($link) {
 }
 function getVimeoID($link) {
 	return substr(parse_url($link, PHP_URL_PATH), 1);
+}
+
+function button_func( $atts, $content = "" ) {
+	$a = new SimpleXMLElement($content);
+
+	$class = $a['class'];
+	$target = $a['target'];
+	$href = $a['href'];
+	$rel = $a['rel'];
+	$text = $a[0];
+	return '<a href="'.$href.'" target="'.$target.'" rel="'.$rel.'" class="btn btn-primary '.$class.'">'.$text.'</a>';
+}
+add_shortcode( 'button', 'button_func' );
+
+add_shortcode('breadcrumb_simple', 'breadcrumb_simple');
+function breadcrumb_simple() {
+    global $post;
+	$separator = '<span class="sep">></span>';
+	
+    echo '<div class="breadcrumb">';
+	if (!is_front_page()) {
+		echo '<a href="';
+		echo get_option('home');
+		echo '">';
+		bloginfo('name');
+		echo "</a> ".$separator;
+		if ( is_category() || is_single() ) {
+			the_category(', ');
+			if ( is_single() ) {
+				echo $separator;
+				the_title();
+			}
+		} elseif ( is_page() && $post->post_parent ) {
+			$home = get_page(get_option('page_on_front'));
+			for ($i = count($post->ancestors)-1; $i >= 0; $i--) {
+				if (($home->ID) != ($post->ancestors[$i])) {
+					echo '<a href="';
+					echo get_permalink($post->ancestors[$i]); 
+					echo '">';
+					echo get_the_title($post->ancestors[$i]);
+					echo "</a>".$separator;
+				}
+			}
+			echo '<a href="'.get_permalink().'">'.the_title('','',false).'</a>';
+		} elseif (is_page()) {
+			echo '<a href="'.get_permalink().'">'.the_title('','',false).'</a>';
+		} elseif (is_404()) {
+			echo "404";
+		}
+	} else {
+		bloginfo('name');
+	}
+	echo '</div>';
 }
 
 ?>
