@@ -42,9 +42,9 @@ add_action( 'widgets_init', 'atlas_sidebars' );
 function remove_menus(){
 	if (!is_super_admin()) {
 		//remove_menu_page('index.php'); // dashboard
-		remove_menu_page('edit-comments.php'); // comments
 		remove_menu_page('tools.php'); // tools
 	}
+	remove_menu_page('edit-comments.php'); // comments
 	remove_menu_page('cptui_manage_post_types');
 	remove_menu_page('themes.php'); // appearance
 	remove_menu_page('edit-comments.php'); // comments
