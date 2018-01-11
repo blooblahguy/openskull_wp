@@ -12,26 +12,31 @@
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<title><? wp_title(); ?></title>
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title><? wp_title(); ?></title>
 	<? wp_head(); ?>
 	
-	<link rel="stylesheet" href="//openskull.com/openskull.css"/>
+	<link rel="stylesheet" href="/css/openskull.css"/>
 	<link rel="stylesheet" href="/css/style.css"/>
 </head>
 <body <?php body_class(); ?>>
-	<div class="header_outer">
-		<div class="header">
+	<div class="header_outer row">
+		<button class="os_menu_toggle" aria-controls="primary-menu" aria-expanded="false"></button>
+
+		<header class="header row">
 			<a href="/" class="logo"><img src="/img/logo.png" alt=""/></a>
 			
-			<div class="mainmenu pull-right row">
-				<div class="menu_toggle"></div>
-				<?php wp_nav_menu( array( 'menu' => 'Main Menu' ) ); ?>
-				<div class="clear"></div>
-			</div>
-		</div>
+			<nav class="os-mainmenu pull-right row">
+				<?php wp_nav_menu( array( 
+					'menu' => 'Main Menu', 
+					'menu_id' => 'primary-menu'
+				));?>
+			</nav>
+		</header>
 	</div>
-	<div class="content_outer">
+	<main class="content_outer">
 		<div class="content">

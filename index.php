@@ -1,28 +1,43 @@
-<? 
-get_header(); 
-?>
-<div class="container">
-	<div class="pad20 os-md-9">
-		<? if ( have_posts() ) { while ( have_posts() ) { the_post(); ?>
-		
-		<div class="post">
-			<h4 class="post_title"><? the_title(); ?> <span class="post_date text-sm text-muted"><? the_date(); ?></span></h4>
+<?php
+/**
+ * The main template file
+ *
+ * This is the most generic template file in a WordPress theme
+ * and one of the two required files for a theme (the other being style.css).
+ * It is used to display a page when nothing more specific matches a query.
+ * E.g., it puts together the home page when no home.php file exists.
+ *
+ * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ * @package Atlas
+ */
 
-			<? if (! $is_sub_cat) { ?> <div class="post_info"><? the_category(", "); ?></div> <? } ?>
-			<div class="post_body">
-				<? the_content(); ?>
-			</div>
-		</div>
-	
-		<? }} else { ?>
-			<h2>Uh Oh</h2>
-			<h5 class="em">Sorry, there are no posts for this category yet! <a href="/" class="text-muted">Back to Home</a></h5>
-		<? } ?>
-	</div>
-	<div class="sidebar os-md-3">
-		<? ?>
-	</div>
-</div>
-<?
-get_footer(); 
+get_header(); ?>
+
+	<div id="primary" class="container">
+		<?php
+		if ( have_posts() ) {
+			if ( is_home() && ! is_front_page() ) { ?>
+				<header>
+					<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
+				</header>
+			<?php }
+
+			/* Start the Loop */
+			while ( have_posts() ) { the_post();
+				get_template_part( 'template-parts/content', get_post_format() );
+			}
+
+			the_posts_navigation();
+
+		} else {
+
+			get_template_part( 'template-parts/content', 'none' );
+
+		} ?>
+	</div><!-- .container -->
+
+<?php
+get_sidebar();
+get_footer();
 ?>
