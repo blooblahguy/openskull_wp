@@ -27,7 +27,11 @@
 	<div class="header_outer row">
 		<button class="os_menu_toggle" aria-controls="primary-menu" aria-expanded="false"></button>
 
-		<header class="header row">
+		<div class="top_outer">
+			<div class="top container"></div>
+		</div>
+
+		<header class="header container">
 			<a href="/" class="logo"><img src="/img/logo.png" alt=""/></a>
 			
 			<nav class="os-mainmenu pull-right row">
@@ -36,6 +40,8 @@
 					'menu_id' => 'primary-menu'
 				));?>
 			</nav>
+
+			<div class="search"></div>
 		</header>
 	</div>
 	<main class="content_outer">
