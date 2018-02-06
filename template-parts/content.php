@@ -1,44 +1,57 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
+<?php 
+$first = false;
+if( $wp_query->current_post == 0 && !is_paged() ) { 
+	$first = "first";
+} ?>
+
+<article id="post-<?php the_ID(); ?>" <?php post_class(array('row', 'entry', $first)); ?>>
+	<? if (! $first) { ?>
+		<?php atlas_post_thumbnail(); ?>
+	<? } ?>
+
+
+	<header class="entry_header">
+		<?php if ( 'post' === get_post_type() ) { ?>
+			<div class="entry_meta">
+				<span class="entry_date"><? atlas_posted_on(false); ?></span>
+				<span class="entry_author">By <? atlas_author(false); ?></span>
+			</div>
+		<? } ?>
+		
 		<?php
 		if ( is_singular() ) {
-			the_title( '<h1 class="entry-title">', '</h1>' );
+			the_title( '<h1 class="entry_title">', '</h1>' );
 		} else {
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		}
+			the_title( '<h2 class="entry_title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+		} ?>
 
-		if ( 'post' === get_post_type() ) { ?>
-			<div class="entry-meta">
-				<?php atlas_posted_on(); ?>
-			</div><!-- .entry-meta -->
+		<?php if ( 'post' === get_post_type() && $first ) { ?>
+			<div class="entry_categories">
+				<?php atlas_categories(' '); ?>
+			</div>
 		<?php } ?>
-	</header><!-- .entry-header -->
+	</header>
 
-	<?php atlas_post_thumbnail(); ?>
+	<? if ($first) { ?>
+		<?php atlas_post_thumbnail(); ?>
+	<? } ?>
 
-	<div class="entry-content">
-		<?php
-			the_content( sprintf(
-				wp_kses(
-					/* translators: %s: Name of current post. Only visible to screen readers */
-					__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'atlas' ),
-					array(
-						'span' => array(
-							'class' => array(),
-						),
-					)
-				),
-				get_the_title()
-			) );
+	<div class="entry_content">
+		<?php if( $wp_query->current_post == 0 && !is_paged() ) {
+			echo atlas_content(50, "Continue Reading...", true);
+		} else {
+			echo atlas_content(20);
+		} ?>
+	</div>
 
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'atlas' ),
-				'after'  => '</div>',
-			) );
-		?>
-	</div><!-- .entry-content -->
+	<?php if ( 'post' === get_post_type() && ! $first ) { ?>
+		<div class="entry_categories">
+			<?php atlas_categories(' '); ?>
+		</div>
+	<?php } ?>
 
-	<footer class="entry-footer">
-		<?php atlas_entry_footer(); ?>
-	</footer><!-- .entry-footer -->
-</article><!-- #post-<?php the_ID(); ?> -->
+	<?php wp_link_pages( array(
+		'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'atlas' ),
+		'after'  => '</div>',
+	) ); ?>
+</article>
