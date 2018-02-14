@@ -1,13 +1,4 @@
-<?php
-/**
- * The template for displaying archive pages
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package Atlas
- */
-
-get_header(); ?>
+<?php get_header(); ?>
 
 	<div id="primary" class="container">
 
@@ -47,3 +38,4 @@ get_header(); ?>
 <?php
 get_sidebar();
 get_footer();
+?>

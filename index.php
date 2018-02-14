@@ -1,6 +1,4 @@
-<?php
-
-get_header(); ?>
+<?php get_header(); ?>
 
 	<div id="primary" class="container">
 		<div class="os-md-9 main">
@@ -31,6 +29,4 @@ get_header(); ?>
 		</aside>
 	</div>
 
-<?php
-get_footer();
-?>
+<?php get_footer(); ?>
