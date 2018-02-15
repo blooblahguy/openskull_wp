@@ -15,7 +15,7 @@ function my_acf_settings_dir( $dir ) {
 }
 
 add_filter('acf/settings/show_admin', '__return_false'); 		// 3. Hide ACF field group menu item
-include_once( get_stylesheet_directory() . '/acf/acf.php' ); 	// 4. Include ACF
+include_once( get_stylesheet_directory() . '/atlas/acf/acf.php' ); 	// 4. Include ACF
 
 class AutoActivator {											// 5. Activate it with our pro key
 	const ACTIVATION_KEY = 'b3JkZXJfaWQ9MTI0ODIyfHR5cGU9ZGV2ZWxvcGVyfGRhdGU9MjAxOC0wMi0xNCAxNjoyOTo0OQ==';
