@@ -34,6 +34,8 @@
 	
 	<link rel="stylesheet" href="/css/openskull.css"/>
 	<link rel="stylesheet" href="/css/style.css"/>
+
+	<link rel="shortcut icon" href="/img/favicon.png" />
 </head>
 <body <?php body_class(); ?>>
 	<div class="header_outer row">
