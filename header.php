@@ -30,33 +30,43 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 
 	<title><? wp_title(); ?></title>
+
+	<?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
 	<? wp_head(); ?>
 	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="/css/openskull.css"/>
-	<link rel="stylesheet" href="/css/style.css"/>
+	<link rel="stylesheet" href="/css/style.php"/>
 
 	<link rel="shortcut icon" href="/img/favicon.png" />
 </head>
 <body <?php body_class(); ?>>
-	<div class="header_outer row">
-		<button class="os_menu_toggle" aria-controls="primary-menu" aria-expanded="false"></button>
-
-		<div class="top_outer">
-			<div class="top container"></div>
-		</div>
-
-		<header class="header container">
-			<a href="/" class="logo"><img src="/img/logo.png" alt=""/></a>
+	<div class="top_outer">
+		<div class="top container">
 			
-			<nav class="os-mainmenu pull-right row">
+		</div>
+	</div>
+	<div class="header_outer bg-primary ">
+		<button class="os_menu_toggle hidden-md hidden-lg" aria-controls="primary-menu" aria-expanded="false"></button>
+
+		<div class="container">
+
+		<header class="header row content-justify content-middle">
+			<a href="/" class="logo os ">Atlas</a>
+			
+			<nav class="os os-menu self-end">
 				<?php wp_nav_menu( array( 
-					'menu' => 'Main Menu', 
-					'menu_id' => 'primary-menu'
+					'menu' => 'Main Menu' 
+					, 'menu_id' => 'primary-menu'
+					, 'menu_class' => 'os-menu menu'
 				));?>
 			</nav>
 
-			<div class="search"></div>
+			<? get_search_form() ?>
+
+			<!-- <div class="search"></div> -->
 		</header>
+		</div>
 	</div>
-	<main class="content_outer">
+	<main class="content_outer padb40">
 		<div class="content">

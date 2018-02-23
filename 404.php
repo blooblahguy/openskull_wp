@@ -1,5 +1,6 @@
-<?php 
-get_header(); ?>
+<? if ($_SERVER['SERVER_NAME'] == 'localhost') { echo basename(__FILE__, '.php'); } ?>
+
+<?php get_header(); ?>
 
 	<div class="container">
 

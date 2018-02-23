@@ -1,5 +1,8 @@
 <?php
 	header('Content-Type: text/css');
+
+	error_reporting(0);
+	
 	require_once 'scssphp/scss.inc.php';
 	use Leafo\ScssPhp\Compiler;
 

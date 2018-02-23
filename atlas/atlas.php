@@ -1,4 +1,11 @@
 <?php
+require_once("mega/mega.php"); // our page layout editor 
+
+$debug = false;
+if ($_SERVER['SERVER_NAME'] == 'localhost') { // development
+	$debug = true;
+}
+
 ////////////////////////////////////////////////
 // ACF Auto Activation 
 //////////////////////////////////////////////// 
@@ -127,22 +134,19 @@ function remove_menus(){
 	// move the useful parts of appearance out to other locations
 	add_menu_page("Widgets", "Widgets", "administrator", "widgets.php", '', 'dashicons-welcome-widgets-menus', 21);
 	add_menu_page("Menus", "Menus", "administrator", "nav-menus.php", '', 'dashicons-menu', 20);
-	add_submenu_page("options-general.php", "Themes", "Themes", "administrator", "theme.php");
+	add_submenu_page("options-general.php", "Themes", "Themes", "administrator", "themes.php");
 }
-
 add_action( 'admin_menu', 'remove_menus');
 
-// include tiny MCE editor css
-add_editor_style('css/tinymce.css');
-function add_editor_styles() {add_editor_style( 'css/tinymce.css' );}
-add_action( 'admin_init', 'add_editor_styles' );
 function plugin_mce_css( $mce_css ) {
-	if ( !empty( $mce_css ) )
+	if ( !empty( $mce_css ) ) {
 		$mce_css .= ',';
-		$mce_css .= (get_stylesheet_directory() . '/css/tinymce.css');
+		$mce_css .= (get_template_directory_uri() . '/css/tinymce.css');
 		return $mce_css;
 	}
+}
 add_filter( 'mce_css', 'plugin_mce_css' );
+
 add_filter('show_admin_bar','__return_false'); // remove admin bar
 
 function remove_footer_admin () {echo '<em>Theme developed by <a href="http://www.claypotcreative.com">Clay Pot Creative</a></em>';} // remove footer spam
@@ -198,7 +202,7 @@ if( function_exists('acf_add_options_page') ) {
 		'page_title' 	=> 'Site Wide Settings',
 		'menu_title'	=> 'Site Wide Settings',
 		'menu_slug' 	=> 'site-wide-settings',
-		'icon_url'	 	=> "dashicons dashicons-slides",
+		'icon_url'	 	=> "dashicons-tablet",
 	));
 }
 

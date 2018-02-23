@@ -1,32 +1,49 @@
+<? if ($_SERVER['SERVER_NAME'] == 'localhost') { echo basename(__FILE__); } ?>
+
+
 <?php get_header(); ?>
 
-	<div id="primary" class="container">
-		<div class="os-md-9 main">
-			<?php
-			if ( have_posts() ) {
-				if ( is_home() && ! is_front_page() ) { ?>
-					<header>
-						<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
-					</header>
-				<?php }
+	<? if ( have_posts() ) { ?>
 
-				/* Start the Loop */
-				$index = 0;
-				while ( have_posts() ) { the_post(); $index++;
-					get_template_part( 'template-parts/content', get_post_format() );
+		<? // lets get homepage templates in here
+		if (( is_home() && is_front_page() ) ||(is_home() && ! is_front_page())) {
+			// blog homepage, or home is 'default' posts
+			get_template_part( 'template-parts/blog', 'home');
+		} ?>
+
+		<?php
+		// now pull in a content loop, eg. content.php, content-post.php, content-page.php
+		$index = 0;
+		while ( have_posts() ) { the_post(); $index++;
+			if (is_page()) {
+				// include page templates
+				if ( ! is_home() && is_front_page() ) {
+					get_template_part( 'template-parts/page', 'home' );
+				} else {
+					get_template_part( 'template-parts/page' );
 				}
 
-				the_posts_navigation();
-
 			} else {
+				if (get_post_type() === 'post') {
+					// include basic posts/search templates
+					if (is_single()) {
+						get_template_part( 'template-parts/content', 'single');
+					} else {
+						get_template_part( 'template-parts/content', get_post_format() );
+					}
+				} else {
+					// include custom post types if needed
+					
+				}	
+			} // end if page / post
+		} //  end while have posts
 
-				get_template_part( 'template-parts/content', 'none' );
+		the_posts_navigation();
+		?>
+	<? } else {
+		// nothing exists here (blank search or no content)
+		get_template_part( 'template-parts/content', 'none' );
+	} ?>
 
-			} ?>
-		</div>
-		<aside id="secondary" class="widget-area os-md-3 sidebar">
-			<?php dynamic_sidebar( 'atlas_sidebar-1' ); ?>
-		</aside>
-	</div>
 
 <?php get_footer(); ?>

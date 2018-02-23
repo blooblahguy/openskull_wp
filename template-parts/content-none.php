@@ -1,13 +1,5 @@
-<?php
-/**
- * Template part for displaying a message that posts cannot be found
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package Atlas
- */
+<? if ($_SERVER['SERVER_NAME'] == 'localhost') { echo basename(__FILE__); } ?>
 
-?>
 
 <section class="no-results not-found">
 	<header class="page-header">
