@@ -3,7 +3,7 @@
 
 	error_reporting(0);
 	
-	require_once './atlas/scssphp/scss.inc.php';
+	require_once '../scssphp/scss.inc.php';
 	use Leafo\ScssPhp\Compiler;
 
 	$scss = new Compiler();
@@ -11,5 +11,5 @@
 	$scss->setSourceMap(Compiler::SOURCE_MAP_INLINE);
 	$scss->setFormatter('Leafo\ScssPhp\Formatter\Compact');
 
-	echo $scss->compile('@import "style.scss";');
+	echo $scss->compile('@import "admin_css.scss";');
 ?>

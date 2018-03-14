@@ -1,7 +1,8 @@
 <?php
-// function theme_slug_filter_the_content( $content ) {
-// 	return $content;
-// }
-// add_filter( 'edit_form_after_title', 'theme_slug_filter_the_content' );
+	function mega_init() {
+		global $wp_customize;
+		$wp_customize->remove_panel( 'themes' );
+		$wp_customize->remove_section( 'site_title' );
+	}
 
 ?>
