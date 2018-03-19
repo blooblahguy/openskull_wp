@@ -1,39 +1,37 @@
 <?php
-require_once("mega/mega.php"); // our page layout editor 
-
 $debug = false;
 if ($_SERVER['SERVER_NAME'] == 'localhost') { // development
 	$debug = true;
 }
 
+// our mega widget
+require_once("mega/mega.php"); // our page layout editor
+
 ////////////////////////////////////////////////
 // ACF Auto Activation 
 //////////////////////////////////////////////// 
-add_filter('acf/settings/path', 'my_acf_settings_path');		// 1. customize ACF path
+$acf_key = 'b3JkZXJfaWQ9MTI0ODIyfHR5cGU9ZGV2ZWxvcGVyfGRhdGU9MjAxOC0wMi0xNCAxNjoyOTo0OQ==';
+// 1. customize ACF path
+add_filter('acf/settings/path', 'my_acf_settings_path');
 function my_acf_settings_path( $path ) {
     $path = get_stylesheet_directory() . '/atlas/acf/';
     return $path;
 }
-
-add_filter('acf/settings/dir', 'my_acf_settings_dir');			// 2. customize ACF dir
+// 2. customize ACF dir
+add_filter('acf/settings/dir', 'my_acf_settings_dir');
 function my_acf_settings_dir( $dir ) {
     $dir = get_stylesheet_directory_uri() . '/atlas/acf/'; 
     return $dir;
 }
-
-add_filter('acf/settings/show_admin', '__return_false'); 		// 3. Hide ACF field group menu item
-include_once( get_stylesheet_directory() . '/atlas/acf/acf.php' ); 	// 4. Include ACF
-
-class AutoActivator {											// 5. Activate it with our pro key
-	const ACTIVATION_KEY = 'b3JkZXJfaWQ9MTI0ODIyfHR5cGU9ZGV2ZWxvcGVyfGRhdGU9MjAxOC0wMi0xNCAxNjoyOTo0OQ==';
-
-	public function __construct() {
-		if (function_exists( 'acf' ) && is_admin() && !acf_pro_get_license_key() ) {
-			acf_pro_update_license(self::ACTIVATION_KEY);
-		}
-	}
+// 3. Hide ACF field group menu item
+add_filter('acf/settings/show_admin', '__return_false');
+// 4. Include ACF
+include_once( get_stylesheet_directory() . '/atlas/acf/acf.php' ); 
+// 5. Activate pro key
+if (function_exists( 'acf' ) && is_admin() && !acf_pro_get_license_key() ) {
+	acf_pro_update_license($acf_key);
 }
-new AutoActivator();
+
 
 ////////////////////////////////////////////////
 // Set Theme Support
@@ -135,6 +133,7 @@ function remove_menus(){
 	add_menu_page("Widgets", "Widgets", "administrator", "widgets.php", '', 'dashicons-welcome-widgets-menus', 21);
 	add_menu_page("Menus", "Menus", "administrator", "nav-menus.php", '', 'dashicons-menu', 20);
 	add_submenu_page("options-general.php", "Themes", "Themes", "administrator", "themes.php");
+	add_submenu_page("options-general.php", "Custom Fields", "Custom Fields", "administrator", "edit.php?post_type=acf-field-group");
 }
 add_action( 'admin_menu', 'remove_menus');
 
@@ -437,7 +436,5 @@ function wpdocs_always_collapse_menu() {
     }
 }
 add_action( 'admin_head', 'wpdocs_always_collapse_menu' );
-
-add_action( 'customize_register', 'mega_init' );
 
 ?>
