@@ -3,7 +3,7 @@
 
 	error_reporting(0);
 	
-	require_once './atlas/scssphp/scss.inc.php';
+	require_once '../atlas/scssphp/scss.inc.php';
 	use Leafo\ScssPhp\Compiler;
 
 	$scss = new Compiler();

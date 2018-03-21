@@ -10,6 +10,12 @@ require_once("mega/mega.php"); // our page layout editor
 ////////////////////////////////////////////////
 // ACF Auto Activation 
 //////////////////////////////////////////////// 
+add_filter('acf/settings/load_json', 'my_acf_json_load_point');
+function my_acf_json_load_point( $paths ) {
+    unset($paths[0]);
+    $paths[] = get_template_directory() . '/atlas/acf_json';
+    return $paths;
+}
 $acf_key = 'b3JkZXJfaWQ9MTI0ODIyfHR5cGU9ZGV2ZWxvcGVyfGRhdGU9MjAxOC0wMi0xNCAxNjoyOTo0OQ==';
 // 1. customize ACF path
 add_filter('acf/settings/path', 'my_acf_settings_path');
@@ -31,7 +37,6 @@ include_once( get_stylesheet_directory() . '/atlas/acf/acf.php' );
 if (function_exists( 'acf' ) && is_admin() && !acf_pro_get_license_key() ) {
 	acf_pro_update_license($acf_key);
 }
-
 
 ////////////////////////////////////////////////
 // Set Theme Support
@@ -134,6 +139,7 @@ function remove_menus(){
 	add_menu_page("Menus", "Menus", "administrator", "nav-menus.php", '', 'dashicons-menu', 20);
 	add_submenu_page("options-general.php", "Themes", "Themes", "administrator", "themes.php");
 	add_submenu_page("options-general.php", "Custom Fields", "Custom Fields", "administrator", "edit.php?post_type=acf-field-group");
+	add_submenu_page("options-general.php", "CF Tools", "CF Tools", "administrator", "edit.php?post_type=acf-field-group&page=acf-tools");
 }
 add_action( 'admin_menu', 'remove_menus');
 

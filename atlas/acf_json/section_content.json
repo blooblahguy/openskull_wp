@@ -1,0 +1,130 @@
+{
+	"key": "group_atlasmain"
+	, "modified": 2000000000
+	, "title": "Content"
+	, "position": "high"
+	, "style": "seamless"
+	, "label_placement": "top"
+	, "instruction_placement": "label"
+	, "active": 1
+	, "description": ""
+	, "menu_order": 5
+	, "location": [
+		[
+			{
+				"param": "post_type",
+				"operator": "==",
+				"value": "page"
+			}
+		]
+	]
+	, "hide_on_screen": [
+		"excerpt",
+		"content_editor",
+		"custom_fields",
+		"discussion",
+		"comments",
+		"revisions",
+		"slug",
+		"author",
+		"format",
+		"send-trackbacks"
+	]
+	, "fields": [
+		{
+			"key": "group_sectionsrepeater"
+			, "label": "Sections"
+			, "name": "sections"
+			, "type": "repeater"
+			, "layout": "block"
+			, "button_label": "Add Section"
+			, "sub_fields": [
+				{
+					"key": "field_sectionbackground"
+					, "label": "Section Background"
+					, "name": "section_background"
+					, "type": "select"
+					, "choices": {
+						"white": "White"
+						, "grey": "Grey"
+						, "dark": "Dark"
+						, "primary": "Primary"
+						, "secondary": "Secondary"
+					}
+					, "default_value": "white"
+				}
+				, {
+					"key": "field_sectioncontent"
+					, "label": "Content"
+					, "name": "content"
+					, "type": "flexible_content"
+					, "layout": "block"
+					, "button_label": "Add Content"
+					, "layouts": [
+						{
+							"key": "megacards"
+							, "label": "Cards"
+							, "name": "cards"
+							, "type": "repeater"
+							, "sub_fields": [
+								{
+									"key": "megacards_title"
+									, "label": "Title"
+									, "name": "title"
+									, "type": "text"
+								}
+								, {
+									"key": "megacards_description"
+									, "label": "Description"
+									, "name": "description"
+									, "type": "textarea"
+								}
+								, {
+									"key": "megacards_page"
+									, "label": "Page Link"
+									, "name": "page_link"
+									, "type": "page_link"
+									, "post_type": []
+                                	, "taxonomy": []
+									, "allow_null": 0
+								}
+								, {
+									"key": "megacards_sublinks"
+									, "label": "Sub Links"
+									, "name": "sub_links"
+									, "type": "repeater"
+									, "sub_fields": [
+										{
+											"key": "megacards_sublinks_title"
+											, "label": "Title"
+											, "name": "title"
+											, "type": "text"
+										}
+										, {
+											"key": "megacards_sublinks_page"
+											, "label": "Page Link"
+											, "name": "page_link"
+											, "type": "page_link"
+											, "post_type": []
+											, "taxonomy": []
+											, "allow_null": 0
+										}
+									]
+								}
+							]
+						}
+						, {
+							"key": "mega_basic_text"
+							, "label": "Basic Text"
+							, "name": "basic_text"
+							, "type": "wysiwyg"
+							, "tabs": "all"
+							, "toolbar": "full"
+							, "media_upload": 1
+						}
+					]
+				}
+			]
+		}
+	]
+}

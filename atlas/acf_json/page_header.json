@@ -1,0 +1,35 @@
+{
+	"key": "group_atlas_pageheader"
+	, "modified": 2000000000
+	, "title": "Content"
+	, "position": "high"
+	, "style": "seamless"
+	, "label_placement": "top"
+	, "instruction_placement": "label"
+	, "active": 1
+	, "description": ""
+	, "menu_order": 0
+	, "location": [
+		[
+			{
+				"param": "post_type",
+				"operator": "==",
+				"value": "page"
+			}
+		]
+	]
+	, "hide_on_screen": [
+		"excerpt",
+		"content_editor",
+		"custom_fields",
+		"discussion",
+		"comments",
+		"revisions",
+		"slug",
+		"author",
+		"format",
+		"send-trackbacks"
+	]
+	, "fields": [
+	]
+}
