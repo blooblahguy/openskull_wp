@@ -5,76 +5,15 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') { // development
 }
 
 // our mega widget
-require_once("mega/mega.php"); // our page layout editor
+include("theme_support.php"); // our page layout editor
+include("performance.php"); // our page layout editor
+include("images.php"); // our page layout editor
+include("search.php"); // our page layout editor
+include("acf_autoload.php"); // our page layout editor
+include("mega/mega.php"); // our page layout editor
 
-////////////////////////////////////////////////
-// ACF Auto Activation 
-//////////////////////////////////////////////// 
-add_filter('acf/settings/load_json', 'my_acf_json_load_point');
-function my_acf_json_load_point( $paths ) {
-    unset($paths[0]);
-    $paths[] = get_template_directory() . '/atlas/acf_json';
-    return $paths;
-}
-$acf_key = 'b3JkZXJfaWQ9MTI0ODIyfHR5cGU9ZGV2ZWxvcGVyfGRhdGU9MjAxOC0wMi0xNCAxNjoyOTo0OQ==';
-// 1. customize ACF path
-add_filter('acf/settings/path', 'my_acf_settings_path');
-function my_acf_settings_path( $path ) {
-    $path = get_stylesheet_directory() . '/atlas/acf/';
-    return $path;
-}
-// 2. customize ACF dir
-add_filter('acf/settings/dir', 'my_acf_settings_dir');
-function my_acf_settings_dir( $dir ) {
-    $dir = get_stylesheet_directory_uri() . '/atlas/acf/'; 
-    return $dir;
-}
-// 3. Hide ACF field group menu item
-add_filter('acf/settings/show_admin', '__return_false');
-// 4. Include ACF
-include_once( get_stylesheet_directory() . '/atlas/acf/acf.php' ); 
-// 5. Activate pro key
-if (function_exists( 'acf' ) && is_admin() && !acf_pro_get_license_key() ) {
-	acf_pro_update_license($acf_key);
-}
 
-////////////////////////////////////////////////
-// Set Theme Support
-////////////////////////////////////////////////
-add_theme_support( 'title-tag' ); // have WP provide <title> tag
-add_theme_support( 'post-thumbnails' ); // post thumbnails support
-add_theme_support( 'customize-selective-refresh-widgets' ); // Add theme support for selective refresh for widgets.
-remove_action('welcome_panel', 'wp_welcome_panel'); // remove welcome display that encourages users to break their perfectly good site
-add_filter('xmlrpc_enabled', '__return_false'); // let's be a little more secure..
-add_filter('widget_text','do_shortcode'); // Enable shortcodes in text widgets
-add_filter('widget_text', 'do_shortcode'); /* Allow shortcodes in widget areas */
-add_theme_support( 'html5', array( // witch default core markup for search form, comment form, and comments to output valid HTML5.
-	'search-form',
-	'comment-form',
-	'comment-list',
-	'gallery',
-	'caption',
-));
 
-add_action( 'wp_enqueue_scripts', 'atlas_scripts' ); //Enqueue scripts and styles.
-function atlas_scripts() {
-	wp_enqueue_script( 'atlas-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-	wp_enqueue_script( 'atlas-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
-}
-
-// additional image sizes
-add_image_size( '120-thumb', 120, 120);
-add_image_size( '300-thumb', 300, 300);
-add_image_size( '640-thumb', 640, 640, true, array("left", "top"));
-
-add_image_size( 'slide-image', 1200, 600, true, array("center", "top"));
-add_image_size( 'slide-image-preview', 600, 300, true, array("center", "top"));
-
-add_image_size( 'hero-image', 1040, 500, true, array("center", "top"));
-add_image_size( 'hero-image-preview', 520, 250, true, array("center", "top"));
 
 ////////////////////////////////////////////////
 // Set Default Theme Elements
@@ -82,9 +21,9 @@ add_image_size( 'hero-image-preview', 520, 250, true, array("center", "top"));
 // Default Menus
 function register_my_menus() {
 	register_nav_menus( array(
-		'main_menu' => __( 'Main Menu' ),
-		'sidebar_menu' => __( 'Sidebar Menu' ),
-		'footer_menu' => __( 'Footer Menu' )
+		'main_menu' => 'Main Menu'
+		, 'sidebar_menu' => 'Sidebar Menu'
+		, 'footer_menu' => 'Footer Menu'
 	));
 }
 add_action( 'init', 'register_my_menus' );
@@ -104,44 +43,7 @@ function atlas_sidebars() {
 }
 add_action( 'widgets_init', 'atlas_sidebars' );
 
-////////////////////////////////////////////////
-// Tweaks
-////////////////////////////////////////////////
-// optimize
-add_action('init', function() {
-	remove_action( 'wp_head', 'feed_links_extra', 3 );                      // Category Feeds
-	remove_action( 'wp_head', 'feed_links', 2 );                            // Post and Comment Feeds
-	remove_action( 'wp_head', 'rsd_link' );                                 // EditURI link
-	remove_action( 'wp_head', 'wlwmanifest_link' );                         // Windows Live Writer
-	remove_action( 'wp_head', 'index_rel_link' );                           // index link
-	remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );              // previous link
-	remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );               // start link
-	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );   // Links for Adjacent Posts
-	remove_action( 'wp_head', 'wp_generator' );                             // WP version
-	if (!is_admin()) {
-		wp_deregister_script('jquery');                                     // De-Register jQuery
-		wp_register_script('jquery', '', '', '', true);                     // Register as 'empty', because we manually insert our script in header.php
-	}
-});
 
-// Remove things from the admin sidebar that will let them break the site
-function remove_menus(){
-	if (!is_super_admin()) {
-		remove_menu_page('index.php'); // dashboard
-		remove_menu_page('tools.php'); // tools
-	}
-	remove_menu_page('edit-comments.php'); // comments
-	remove_menu_page('cptui_manage_post_types');
-	remove_menu_page('themes.php'); // appearance
-	remove_menu_page('edit-comments.php'); // comments
-	// move the useful parts of appearance out to other locations
-	add_menu_page("Widgets", "Widgets", "administrator", "widgets.php", '', 'dashicons-welcome-widgets-menus', 21);
-	add_menu_page("Menus", "Menus", "administrator", "nav-menus.php", '', 'dashicons-menu', 20);
-	add_submenu_page("options-general.php", "Themes", "Themes", "administrator", "themes.php");
-	add_submenu_page("options-general.php", "Custom Fields", "Custom Fields", "administrator", "edit.php?post_type=acf-field-group");
-	add_submenu_page("options-general.php", "CF Tools", "CF Tools", "administrator", "edit.php?post_type=acf-field-group&page=acf-tools");
-}
-add_action( 'admin_menu', 'remove_menus');
 
 function plugin_mce_css( $mce_css ) {
 	if ( !empty( $mce_css ) ) {
@@ -150,26 +52,33 @@ function plugin_mce_css( $mce_css ) {
 		return $mce_css;
 	}
 }
-add_filter( 'mce_css', 'plugin_mce_css' );
-
+add_filter('mce_css', 'plugin_mce_css');
 add_filter('show_admin_bar','__return_false'); // remove admin bar
-
-function remove_footer_admin () {echo '<em>Theme developed by <a href="http://www.claypotcreative.com">Clay Pot Creative</a></em>';} // remove footer spam
-add_filter('admin_footer_text', 'remove_footer_admin');
-
-function wpb_remove_version() {return '';} // remove version number
-add_filter('the_generator', 'wpb_remove_version');
+add_filter('admin_footer_text', '__return_false'); // remove footer text
+add_filter('the_generator', '__return_false'); // remove version #
 remove_action('wp_head', 'wp_generator');
 
-add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets'); // add help link in dashboard
 function my_custom_dashboard_widgets() {
 	global $wp_meta_boxes;
 	wp_add_dashboard_widget('custom_help_widget', 'Wordpress Support', 'custom_dashboard_help');
+	remove_meta_box('dashboard_quick_press','dashboard','side'); //Quick Press widget
+	remove_meta_box('dashboard_recent_drafts','dashboard','side'); //Recent Drafts
+	remove_meta_box('dashboard_primary','dashboard','side'); //WordPress.com Blog
+	remove_meta_box('dashboard_secondary','dashboard','side'); //Other WordPress News
+	remove_meta_box('dashboard_incoming_links','dashboard','normal'); //Incoming Links
+	remove_meta_box('dashboard_plugins','dashboard','normal'); //Plugins
+	remove_meta_box('dashboard_right_now','dashboard', 'normal'); //Right Now
+	remove_meta_box('rg_forms_dashboard','dashboard','normal'); //Gravity Forms
+	remove_meta_box('dashboard_recent_comments','dashboard','normal'); //Recent Comments
+	remove_meta_box('icl_dashboard_widget','dashboard','normal'); //Multi Language Plugin
+	remove_meta_box('dashboard_activity','dashboard', 'normal'); //Activity
+	remove_action('welcome_panel','wp_welcome_panel');
 }
-
 function custom_dashboard_help() { // custom dashboard widget
 	echo '<p>Need help? Contact us at <a href="http://www.claypotcreative.com">ClayPotCreative.com</a>.</p>';
 }
+add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets'); // add help link in dashboard
+
 
 function goodbye_dolly() { // remove hello dolly...
 	if (file_exists(WP_PLUGIN_DIR.'/hello.php')) {
@@ -201,16 +110,6 @@ function admin_style() {
 }
 add_action('admin_enqueue_scripts', 'admin_style', 9999);
 
-// Add ACF Options
-if( function_exists('acf_add_options_page') ) {
-	acf_add_options_page(array(
-		'page_title' 	=> 'Site Wide Settings',
-		'menu_title'	=> 'Site Wide Settings',
-		'menu_slug' 	=> 'site-wide-settings',
-		'icon_url'	 	=> "dashicons-tablet",
-	));
-}
-
 // gravity forms fix
 add_filter("gform_init_scripts_footer", "init_scripts");
 function init_scripts() { return true; }
@@ -221,15 +120,6 @@ function var_template_include( $t ){
 	$GLOBALS['current_theme_template'] = basename($t);
 	return $t;
 }
-function get_current_template( $echo = false ) {
-	if( !isset( $GLOBALS['current_theme_template'] ) )
-		return false;
-	if( $echo )
-		echo $GLOBALS['current_theme_template'];
-	else
-		return $GLOBALS['current_theme_template'];
-}
-
 
 ////////////////////////////////////////////////
 // Shortcodes
@@ -291,6 +181,11 @@ function breadcrumb_simple() {
 /////////////////////////////////////////////////////////
 // Theme functions for better display
 /////////////////////////////////////////////////////////
+function debug($i) {
+	echo "<pre>";
+	print_r($i);
+	echo "</pre>";
+}
 function getYoutubeID($link) {
 	$matches = array();
 	
@@ -322,7 +217,6 @@ function atlas_posted_on($link = true) {
 		$posted_on = $time_string;
 	}
 	echo '<span class="posted-on">' . $posted_on . '</span>';
-
 }
 
 function atlas_author($link = true) {
@@ -441,6 +335,6 @@ function wpdocs_always_collapse_menu() {
         set_user_setting( 'mfold', 'f' );
     }
 }
-add_action( 'admin_head', 'wpdocs_always_collapse_menu' );
+// add_action( 'admin_head', 'wpdocs_always_collapse_menu' );
 
 ?>
