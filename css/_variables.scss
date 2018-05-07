@@ -1,0 +1,62 @@
+// colors
+$black: #333;
+$grey: #ddd;
+$white: #fefefe;
+
+$primary: #337ab7;
+$secondary: #096;
+$dark: #555;
+$success: #449d44;
+$info: #5bc0de;
+$warning: #facf7e;
+$danger: #d9534f;
+
+// font sizes
+$font_lg: 1.2rem;
+$font_md: 15px;
+$font_sm: 0.9rem;
+$font_xs: 0.8rem;
+
+/////////////////////////
+// Typgraphy
+/////////////////////////
+$h1: 2.2rem;
+$h2: 1.76rem;
+$h3: 1.405rem;
+$h4: 1.12rem;
+$h5: 1.0rem;
+$h6: 0.7rem;
+
+%h1 {
+	color: $black; font-size: $h1; color: $black; letter-spacing: 1px;
+}
+%h2 {
+	color: $black; font-size: $h2; color: $black;
+}
+%h3 {
+	color: $black; font-size: $h3; color: $black;
+}
+%h4 {
+	color: $black; font-size: $h4; color: $black;
+}
+%h5 {
+	color: $black; font-size: $h5; color: $black;
+}
+%h6 {
+	color: $black; font-size: $h6; color: $black;
+}
+
+////////////////////////
+// Messages
+////////////////////////
+
+// responsive sizing
+// gutters
+$gutter: 0.75rem;
+$g4: $gutter*4;
+$g3: $gutter*3;
+$g2: $gutter*2;
+$g1: $gutter;
+
+// interactions
+$hover_diff: 5%; // how much something should change by when hovered

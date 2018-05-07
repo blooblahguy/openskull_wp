@@ -1,0 +1,187 @@
+
+// Grid containers
+.section {
+	padding: $gutter*4 $gutter*2;
+	&.g0 {padding:0;}
+	&.g2 {padding:$gutter*2 $gutter;}
+	&.g4 {padding:$gutter*4 $gutter*2;}
+}
+.container {
+	max-width: 1200px; margin-left: auto; margin-right:auto; width: 100%;
+	&.#{-fluid} {max-width: none;}
+	&:after {content: ""; display:block; clear:both;}
+}
+
+// Row for flexboxing
+.row, .columns {
+	display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; 
+	&.g0 {margin: 0; margin-bottom: 0;}
+	&.g1 {margin: -$gutter; margin-bottom: -$gutter;}
+	&.g2 {margin: -$gutter*2; margin-bottom: -$gutter*2;}
+	&.g3 {margin: -$gutter*3; margin-bottom: -$gutter*3;}
+	&.g4 {margin: -$gutter*4; margin-bottom: -$gutter*4;}
+
+	&:after, {content: ""; display:block; clear:both;}
+}
+
+// Flex element ordering
+.self-start, .self-top {-ms-flex-item-align: start; align-self: flex-start;}
+.self-center, .self-middle {-ms-flex-item-align: center; align-self: center;}
+.self-end, .self-bottom {-ms-flex-item-align: end; align-self: flex-end;}
+.order-first { -webkit-box-ordinal-group: 0; -ms-flex-order: -1; order: -1;}
+@for $i from 1 through 12 {
+	.order-#{$i} {-webkit-box-ordinal-group: $i + 1; -ms-flex-order: $i; order: $i;}
+}
+.order-first { -webkit-box-ordinal-group: 14; -ms-flex-order: 13; order: 13;}
+
+// Full grid mixin
+@mixin grid_sizes($name, $size: false) {
+	$prefix: '';
+	// Text aligning
+	@if $size {
+		// typography
+		.#{$name}-text-left {text-align:left;}
+		.#{$name}-text-center {text-align:center;}
+		.#{$name}-text-right {text-align:right;}
+
+		// Self aligning
+		.#{$name}#{-self-start}, .#{$name}#{-self-top} {-ms-flex-item-align: start; align-self: flex-start;}
+		.#{$name}#{-self-center}, .#{$name}#{-self-middle} {-ms-flex-item-align: center; align-self: center;}
+		.#{$name}#{-self-end}.#{$name}#{-self-bottom} {-ms-flex-item-align: end; align-self: flex-end;}
+	}
+
+	// From now on we prefix a hyphen
+	@if $size {$prefix: #{$name}-;}
+	@if $size {$name: -#{$name};}
+
+	// grid
+	.os#{$name} {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%; width: 100%; min-height: 20px;}
+	.g0 .os#{$name} {padding: 0;}
+	.g1 .os#{$name} {padding: $gutter;}
+	.g2 .os#{$name} {padding: $gutter*2;}
+	.g3 .os#{$name} {padding: $gutter*3;}
+	.g4 .os#{$name} {padding: $gutter*4;}
+
+	@for $i from 1 through 12 {
+		.os#{$name}#{-$i} {max-width: (100% / 12) * $i; -ms-flex: 0 0 (100% / 12) * $i; flex: 0 0 (100% / 12) * $i; width: 100%; min-height: 20px; }
+		.offset#{$name}#{-$i} {margin-left: (100% / 12) * $i;}
+
+		.g0 .os#{$name}#{-$i} {padding: 0;}
+		.g1 .os#{$name}#{-$i} {padding: $gutter;}
+		.g2 .os#{$name}#{-$i} {padding: $gutter*2;}
+		.g3 .os#{$name}#{-$i} {padding: $gutter*3;}
+		.g4 .os#{$name}#{-$i} {padding: $gutter*4;}
+	}
+
+	// Row aligning by size
+	.content#{$name}-center {-webkit-box-pack: center; -ms-flex-pack: center; justify-content: center;}
+	.content#{$name}-top {-webkit-box-align: start; -ms-flex-align: start; align-items: flex-start; }
+	.content#{$name}-middle {-webkit-box-align: center; -ms-flex-align: center; align-items: center; }
+	.content#{$name}-bottom {-webkit-box-align: end; -ms-flex-align: end; align-items: flex-end; }
+	.content#{$name}-space { -ms-flex-pack: distribute; justify-content: space-around; }
+	.content#{$name}-justify {-webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between;}
+
+	.hidden#{$name} {display:none;}
+
+	.visible#{$name} {
+		&, &#{-block} {display:block;}
+		&#{-inline} {display:inline;}
+		&#{-inline-block} {display:inline-block;}
+		&#{-none} {display:none;}
+	}
+
+	.#{$prefix}#{marg} {
+		&#{auto} {margin:auto;}
+		&#{0} {margin:0px;}
+		&#{1}, &#{10} {margin:$g1;}
+		&#{2}, &#{20} {margin:$g3;}
+		&#{3}, &#{30} {margin:$g3;}
+		&#{4}, &#{40} {margin:$g4;}
+		&#{t}, &#{tb} {
+			&#{0} {margin-top:0;}
+			&#{1}, &#{10} {margin-top:$g1;}
+			&#{2}, &#{20} {margin-top:$g2;}
+			&#{3}, &#{30} {margin-top:$g3;}
+			&#{4}, &#{40} {margin-top:$g4;}
+		}
+		&#{r}, &#{lr} {
+			&#{auto} {margin-right:auto;}
+			&#{0} {margin-right:0;}
+			&#{1}, &#{10} {margin-right:$g1;}
+			&#{2}, &#{20} {margin-right:$g2;}
+			&#{3}, &#{30} {margin-right:$g3;}
+			&#{4}, &#{40} {margin-right:$g4;}
+		}
+		&#{b}, &#{tb} {
+			&#{0} {margin-bottom:0;}
+			&#{1}, &#{10} {margin-bottom:$g1;}
+			&#{2}, &#{20} {margin-bottom:$g2;}
+			&#{3}, &#{30} {margin-bottom:$g3;}
+			&#{4}, &#{40} {margin-bottom:$g4;}
+		}
+		&#{l}, &#{lr} {
+			&#{auto} {margin-left:auto;}
+			&#{0} {margin-left:0;}
+			&#{1}, &#{10} {margin-left:$g1;}
+			&#{2}, &#{20} {margin-left:$g2;}
+			&#{3}, &#{30} {margin-left:$g3;}
+			&#{4}, &#{40} {margin-left:$g4;}
+		}
+	}
+
+	.#{$prefix}#{pad} {
+		&#{0} {padding:0;}
+		&#{1}, &#{10} {padding:$g1 !important;}
+		&#{2}, &#{20} {padding:$g2 !important;}
+		&#{3}, &#{30} {padding:$g3 !important;}
+		&#{4}, &#{40} {padding:$g4 !important;}
+		&#{t}, &#{tb} {
+			&#{0} {padding-top:0 !important;}
+			&#{1}, &#{10} {padding-top:$g1 !important;}
+			&#{2}, &#{20} {padding-top:$g2 !important;}
+			&#{3}, &#{30} {padding-top:$g3 !important;}
+			&#{4}, &#{40} {padding-top:$g4 !important;}
+		}
+		&#{r}, &#{lr} {
+			&#{0} {padding-right:0 !important;}
+			&#{1}, &#{10} {padding-right:$g1 !important;}
+			&#{2}, &#{20} {padding-right:$g2 !important;}
+			&#{3}, &#{30} {padding-right:$g3 !important;}
+			&#{4}, &#{40} {padding-right:$g4 !important;}
+		}
+		&#{b}, &#{tb} {
+			&#{0} {padding-bottom:0 !important;}
+			&#{1}, &#{10} {padding-bottom:$g1 !important;}
+			&#{2}, &#{20} {padding-bottom:$g2 !important;}
+			&#{3}, &#{30} {padding-bottom:$g3 !important;}
+			&#{4}, &#{40} {padding-bottom:$g4 !important;}
+		}
+		&#{l}, &#{lr} {
+			&#{0} {padding-left:0 !important;}
+			&#{1}, &#{10} {padding-left:$g1 !important;}
+			&#{2}, &#{20} {padding-left:$g2 !important;}
+			&#{3}, &#{30} {padding-left:$g3 !important;}
+			&#{4}, &#{40} {padding-left:$g4 !important;}
+		}
+	}
+}
+
+[class*="visible-"] {display: none;}
+@include grid_sizes('');
+
+// Media Queries
+// Small devices (landscape phones, 0px and up)
+.os-sm {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
+@include grid_sizes('sm', true);
+
+// Medium devices (tablets)
+@media (min-width: 720px) {
+	.os-md {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
+	@include grid_sizes('md', true);
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 1200px) {
+	.os-lg {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
+	@include grid_sizes('lg', true);
+}

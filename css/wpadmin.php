@@ -13,7 +13,6 @@
 
 	echo $scss->compile('
 		@import "_variables";
-		@import "openskull/openskull";
-		@import "style";
+		@import "wpadmin";
 	');
 ?>
