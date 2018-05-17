@@ -41,13 +41,18 @@
 	<link rel="shortcut icon" href="/img/favicon.png" />
 </head>
 <body <?php body_class(); ?>>
+	
 	<div class="top_outer">
 		<div class="top container">
 			
 		</div>
 	</div>
 	<div class="header_outer bg-primary ">
-		<button class="os_menu_toggle hidden-md hidden-lg" aria-controls="primary-menu" aria-expanded="false"></button>
+		<button class="os_menu_toggle hidden-md hidden-lg" aria-controls="primary-menu" aria-expanded="false">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 
 		<div class="container">
 
@@ -62,9 +67,7 @@
 				));?>
 			</nav>
 
-			<? get_search_form() ?>
-
-			<!-- <div class="search"></div> -->
+			<? //get_search_form() ?>
 		</header>
 		</div>
 	</div>
