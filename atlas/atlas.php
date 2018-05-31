@@ -3,6 +3,13 @@ $debug = false;
 if ($_SERVER['SERVER_NAME'] == 'localhost') { // development
 	$debug = true;
 }
+function debug(...$params) {
+	foreach ($params as $p) {
+		echo "<pre>";
+		print_r($p);
+		echo "</pre>";
+	}
+}
 
 // our mega widget
 include("theme_support.php"); // our page layout editor
@@ -11,8 +18,6 @@ include("images.php"); // our page layout editor
 include("search.php"); // our page layout editor
 include("acf_autoload.php"); // our page layout editor
 include("mega/mega.php"); // our page layout editor
-
-
 
 
 ////////////////////////////////////////////////
@@ -181,11 +186,6 @@ function breadcrumb_simple() {
 /////////////////////////////////////////////////////////
 // Theme functions for better display
 /////////////////////////////////////////////////////////
-function debug($i) {
-	echo "<pre>";
-	print_r($i);
-	echo "</pre>";
-}
 function getYoutubeID($link) {
 	$matches = array();
 	
