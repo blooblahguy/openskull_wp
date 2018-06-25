@@ -1,7 +1,7 @@
 <?php
 	header('Content-Type: text/css');
 
-	error_reporting(0);
+	error_reporting(E_ALL);
 	
 	require_once '../atlas/scssphp/scss.inc.php';
 	use Leafo\ScssPhp\Compiler;

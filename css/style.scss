@@ -1,57 +1,8 @@
-// Colors\
-$hover_diff: 7%;
 
-$primary: #069;
-$primary_hover: lighten($primary, $hover_diff); 
-$primary_border: darken($primary, $hover_diff);
-
-$secondary: #096;
-$secondary_hover: lighten($secondary, $hover_diff); 
-$secondary_border: darken($secondary, $hover_diff); 
-
-$black: #595959;
-$white: #fff;
-$grey: #E5E5E5;
-
-// fonts
-$body_font: 'Fira Sans', sans-serif;
-$body_size: 17px;
-$line_height: 1.6;
-
-$menu_font: 'Oswald', sans-serif;
-$menu_size: 18px;
-
-$header_font: 'Oswald', sans-serif;
-$h1: 36px;
-$h2: 25px;
-$h3: 20px;
-$h4: 18px;
-$h5: 16px;
-$h6: 14px;
 
 // OS Overrides
 body {color:#333;}
 .container { max-width: 1140px;}
-
-.bg-primary {background: $primary; color: $white; }
-.bg-secondary {background: $secondary; color: $white;}
-.bg-dark, .bg-black {background: $black; color: $white; }
-.bg-grey {background: $grey; color: $black;}
-.bg-white {background: $white; color: $black;}
-
-// Typography
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-	font-family: $header_font;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-h1, .h1, {font-size: $h1;}
-h2, .h2, {font-size: $h2;}
-h3, .h3, {font-size: $h3;}
-h4, .h4, {font-size: $h4;}
-h5, .h5, {font-size: $h5;}
-h6, .h6, {font-size: $h6;}
-
 
 // Header
 .header_outer {

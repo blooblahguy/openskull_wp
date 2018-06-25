@@ -6,6 +6,7 @@ $white: #fefefe;
 $primary: #337ab7;
 $secondary: #096;
 $dark: #555;
+$dark_grey: #888;
 $success: #449d44;
 $info: #5bc0de;
 $warning: #facf7e;
@@ -19,44 +20,55 @@ $font_xs: 0.8rem;
 
 /////////////////////////
 // Typgraphy
-/////////////////////////
-$h1: 2.2rem;
-$h2: 1.76rem;
-$h3: 1.405rem;
-$h4: 1.12rem;
-$h5: 1.0rem;
-$h6: 0.7rem;
+$h1: (
+	size: 2.2rem
+	, color: inherit
+	, spacing: 1px
+	, font-weight: inherit
+);
+$h2: (
+	size: 38px
+	, color: inherit
+	, spacing: 0px
+	, font-weight: 200
+);
+$h3: (
+	size: 1.405rem
+	, color: $primary
+	, spacing: 0px
+	, font-weight: inherit
+);
+$h4: (
+	size: 24px
+	, color: inherit
+	, spacing: 0px
+	, font-weight: inherit
+);
+$h5: (
+	size: 1.0rem
+	, color: inherit
+	, spacing: 0px
+	, font-weight: inherit
+);
+$h6: (
+	size: 0.7rem
+	, color: inherit
+	, spacing: 0px
+	, font-weight: inherit
+);
 
-%h1 {
-	color: $black; font-size: $h1; color: $black; letter-spacing: 1px;
-}
-%h2 {
-	color: $black; font-size: $h2; color: $black;
-}
-%h3 {
-	color: $black; font-size: $h3; color: $black;
-}
-%h4 {
-	color: $black; font-size: $h4; color: $black;
-}
-%h5 {
-	color: $black; font-size: $h5; color: $black;
-}
-%h6 {
-	color: $black; font-size: $h6; color: $black;
-}
-
-////////////////////////
-// Messages
-////////////////////////
-
-// responsive sizing
-// gutters
-$gutter: 0.75rem;
-$g4: $gutter*4;
-$g3: $gutter*3;
-$g2: $gutter*2;
-$g1: $gutter;
-
-// interactions
+// sizing
+$gutter: 0.5rem;
 $hover_diff: 5%; // how much something should change by when hovered
+
+$g1: $gutter;
+$g2: $gutter * 2;
+$g3: $gutter * 3;
+$g4: $gutter * 4;
+
+@mixin prefix($prop, $val) {
+	@each $prefix in '-webkit-', '-moz-', '-ms-', '-o-', '' {
+		#{$prefix}#{$prop}: $val;
+	}
+}
+// @include prefix(box-shadow, 0 3px 3px rgba(0,0,0,0.05)); 
