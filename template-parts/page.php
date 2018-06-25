@@ -1,12 +1,10 @@
-<? if ($_SERVER['SERVER_NAME'] == 'localhost') { echo basename(__FILE__); } ?>
+<? get_template_part("template-parts/page", "title"); ?>
 
-<div class="page_title_outer">
-	<header class="page_title container">
-		<h1><? the_title(); ?></h1>
-	</header>
-</div>
 <div class="page_content_outer">
-	<article id="page-<?php the_ID(); ?>" class="container page_content">
-		<? the_content(); ?>
+	<article id="page-<?php the_ID(); ?>" class="page_content">
+		<div class="container">
+			<? the_content(); ?>
+		</div>
+		<? get_template_part("template-parts/content", "mega"); ?>
 	</article>
 </div>

@@ -7,3 +7,5 @@
 </div>
 
 <hr>
+
+<? // Loads content.php from here for the loop ?>

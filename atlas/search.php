@@ -34,10 +34,11 @@ function my_limit_archives( $args ) {
     $args['limit'] = 4;
     return $args;
 }
+
 // Search pages, not just posts
 function filter_search($query) {
     if ($query->is_search) {
-    $query->set('post_type', array('post', 'page'));
+		$query->set('post_type', array('post', 'page'));
     };
     return $query;
 };

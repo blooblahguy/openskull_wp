@@ -1,1 +1,0 @@
-openskull_wp

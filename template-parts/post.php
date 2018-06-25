@@ -1,11 +1,11 @@
 <? if ($_SERVER['SERVER_NAME'] == 'localhost') { echo basename(__FILE__); } ?>
 
-
 <?php 
 $first = false;
 if( $wp_query->current_post == 0 && !is_paged() ) {
 	$first = "first";
-} ?>
+}
+?>
 
 <div class="article_outer">
 

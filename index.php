@@ -1,18 +1,14 @@
-<? if ($_SERVER['SERVER_NAME'] == 'localhost') { echo basename(__FILE__); } ?>
-
-
 <?php get_header(); ?>
-
 	<? if ( have_posts() ) { ?>
 
 		<? // lets get homepage templates in here
 		if (( is_home() && is_front_page() ) ||(is_home() && ! is_front_page())) {
 			// blog homepage, or home is 'default' posts
-			get_template_part( 'template-parts/blog', 'home');
+			get_template_part( 'template-parts/post', 'home');
 		} ?>
 
 		<?php
-		// now pull in a content loop, eg. content.php, content-post.php, content-page.php
+		// now pull in a post loop, eg. post.php, post-post.php, post-page.php
 		$index = 0;
 		while ( have_posts() ) { the_post(); $index++;
 			if (is_page()) {
@@ -27,9 +23,9 @@
 				if (get_post_type() === 'post') {
 					// include basic posts/search templates
 					if (is_single()) {
-						get_template_part( 'template-parts/content', 'single');
+						get_template_part( 'template-parts/post', 'single');
 					} else {
-						get_template_part( 'template-parts/content', get_post_format() );
+						get_template_part( 'template-parts/post', get_post_format() );
 					}
 				} else {
 					// include custom post types if needed
@@ -42,7 +38,7 @@
 		?>
 	<? } else {
 		// nothing exists here (blank search or no content)
-		get_template_part( 'template-parts/content', 'none' );
+		get_template_part( 'template-parts/404' );
 	} ?>
 
 
