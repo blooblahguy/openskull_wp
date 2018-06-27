@@ -3,18 +3,19 @@ small { font-size: $font_sm; }
 .text-left { text-align:left; }
 .text-right {text-align:right;}
 .text-nowrap {white-space: nowrap;}
-.text-justify {white-space: justify;}
+.text-justify {text-align: justify; text-justify: inter-word;}
 .text-lowercase, .text-lower {text-transform: lowercase;}
 .text-uppercase, .text-upper {text-transform: uppercase;}
+.text-truncate {overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 .text-capitalize {text-transform: capitalize;}
-.text-muted {opacity:0.6;}
+.text-muted {opacity:0.7;}
 .text-small, .text-sm, small {font-size:$font_sm;}
 .text-large, .text-lg {font-size:$font_lg;}
 .text-white {color:#fff;}
 .text-black {color:#fff;}
 
-code {background: #F1F1F1; }
-pre {background: #F1F1F1; overflow: auto; font-size: $font_xs;}
+code {background: $light; }
+pre {background: $light; overflow: auto; font-size: $font_xs;}
 code, kbd, pre, samp, pre.prettify {clear:both; font-family: monospace, monospace; display:block; padding: $gutter;}
 pre > code {display: block; padding: 0; white-space: pre;}
 
@@ -35,13 +36,9 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {margin:0; margin-bottom: $
 .h4, h4 {font-size: map-get($h4, size); color: map-get($h4, color); letter-spacing: map-get($h4, spacing); font-weight: map-get($h4, font-weight); }
 .h5, h5 {font-size: map-get($h5, size); color: map-get($h5, color); letter-spacing: map-get($h5, spacing); font-weight: map-get($h5, font-weight); }
 .h6, h6 {font-size: map-get($h6, size); color: map-get($h6, color); letter-spacing: map-get($h6, spacing); font-weight: map-get($h6, font-weight); }
-.title {font-weight:bold;}
-.subtitle {margin-top: -$gutter;}
 
-p {margin-top: 0; margin-bottom: $gutter * 2;}
-p:last-child {margin-bottom:0;}
+p {margin-top: 0; margin-bottom: $g2;}
 
-ul.list {list-style: disc outside;}
-ol.list {list-style: decimal outside;}
+ul {list-style: disc outside; padding: 0 0 $g2 $g2;}
+ol {list-style: decimal outside; padding: 0 0 $g2 $g2;}
 ol.nolist, ul.nolist {list-style:none;}
-ol.list, ul.list {padding-left: $gutter*2; margin-top: 0;}

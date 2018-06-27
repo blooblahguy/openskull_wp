@@ -1,25 +1,25 @@
 
 // Grid containers
 .section {
-	padding: $gutter*4 $gutter*2;
+	padding: $gutter*2 0;
 	&.g0 {padding:0;}
 	&.g2 {padding:$gutter*2 $gutter;}
 	&.g4 {padding:$gutter*4 $gutter*2;}
 }
-.container {
-	max-width: 1200px; margin-left: auto; margin-right:auto; width: 100%; padding-left: $gutter; padding-right: $gutter;
-	&.#{-fluid} {max-width: none;}
+.container, .container-fluid {
+	margin-left: auto; margin-right:auto; width: 100%; padding-left: $g2; padding-right: $g2;
 	&:after {content: ""; display:block; clear:both;}
 }
+.container {max-width: 800px;}
 
 // Row for flexboxing
 .row, .columns {
 	display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; 
 	&.g0 {margin: 0; }
-	&.g1 {margin: -$gutter;}
-	&.g2 {margin: -$gutter*2;}
-	&.g3 {margin: -$gutter*3;}
-	&.g4 {margin: -$gutter*4;}
+	&.g1 {margin-left: -$g1; margin-right: -$g1; }
+	&.g2 {margin-left: -$g2; margin-right: -$g2; }
+	&.g3 {margin-left: -$g3; margin-right: -$g3; }
+	&.g4 {margin-left: -$g4; margin-right: -$g4; }
 
 	&:after, {content: ""; display:block; clear:both;}
 }
@@ -35,6 +35,7 @@
 .order-last { -webkit-box-ordinal-group: 14; -ms-flex-order: 13; order: 13;}
 
 // Full grid mixin
+[class*="os-"] {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 @mixin grid_sizes($name, $size: false) {
 	$prefix: '';
 	// Text aligning
@@ -56,21 +57,21 @@
 
 	// grid
 	.os#{$name} {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%; width: 100%; min-height: 20px;}
-	.g0 .os#{$name} {padding: 0;}
-	.g1 .os#{$name} {padding: $gutter;}
-	.g2 .os#{$name} {padding: $gutter*2;}
-	.g3 .os#{$name} {padding: $gutter*3;}
-	.g4 .os#{$name} {padding: $gutter*4;}
+	.g0 > .os#{$name} {padding: 0;}
+	.g1 > .os#{$name} {padding: $gutter;}
+	.g2 > .os#{$name} {padding: $gutter*2;}
+	.g3 > .os#{$name} {padding: $gutter*3;}
+	.g4 > .os#{$name} {padding: $gutter*4;}
 
 	@for $i from 1 through 12 {
 		.os#{$name}#{-$i} {max-width: (100% / 12) * $i; -ms-flex: 0 0 (100% / 12) * $i; flex: 0 0 (100% / 12) * $i; width: 100%; min-height: 20px; }
 		.offset#{$name}#{-$i} {margin-left: (100% / 12) * $i;}
 
-		.g0 .os#{$name}#{-$i} {padding: 0;}
-		.g1 .os#{$name}#{-$i} {padding: $gutter;}
-		.g2 .os#{$name}#{-$i} {padding: $gutter*2;}
-		.g3 .os#{$name}#{-$i} {padding: $gutter*3;}
-		.g4 .os#{$name}#{-$i} {padding: $gutter*4;}
+		.g0 > .os#{$name}#{-$i} {padding: 0;}
+		.g1 > .os#{$name}#{-$i} {padding: $gutter; }
+		.g2 > .os#{$name}#{-$i} {padding: $gutter*2; }
+		.g3 > .os#{$name}#{-$i} {padding: $gutter*3; }
+		.g4 > .os#{$name}#{-$i} {padding: $gutter*4; }
 	}
 
 	// Row aligning by size
@@ -160,10 +161,9 @@
 [class*="visible-"] {display: none;}
 @include grid_sizes('');
 
-// Media Queries
 // Small devices (landscape phones, 0px and up)
-.os-sm {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 @media (max-width: 720px) {
+	.os-sm {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 	.hidden-sm {display:none !important;}
 	.visible-sm {
 		&, &#{-block} {display:block;}

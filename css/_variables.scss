@@ -9,56 +9,82 @@ $dark: #555;
 $dark_grey: #888;
 $success: #449d44;
 $info: #5bc0de;
-$warning: #facf7e;
+$warning: #f8b943;
 $danger: #d9534f;
 
-// font sizes
+// System
+$system_colors: (
+	primary: (bg:$primary,color:$white)
+	, secondary: (bg:$secondary,color:$white)
+	, success: (bg:$success,color:$white)
+	, info: (bg:$info,color:$black)
+	, message: (bg:$info,color:$black)
+	, warning: (bg:$warning,color:$black)
+	, danger: (bg:$danger,color:$white)
+	, error: (bg:$danger,color:$black)
+	, dark: (bg:$dark,color:$white)
+	, grey: (bg:$grey,color:$black)
+	, white: (bg:$white,color:$black)
+);
+
+/////////////////////////
+// Layout
+/////////////////////////
+$layers: (
+	background: -10
+	, normal: 0
+	, medium: 50
+	, high: 100
+	, tooltip: 200
+);
+
+/////////////////////////
+// Typgraphy
+/////////////////////////
 $font_lg: 1.2rem;
 $font_md: 15px;
 $font_sm: 0.9rem;
 $font_xs: 0.8rem;
 
-/////////////////////////
-// Typgraphy
 $h1: (
 	size: 2.2rem
 	, color: inherit
 	, spacing: 1px
-	, font-weight: inherit
+	, font-weight: 500
 );
 $h2: (
-	size: 38px
+	size: 2.0rem
 	, color: inherit
 	, spacing: 0px
-	, font-weight: 200
+	, font-weight: 500
 );
 $h3: (
 	size: 1.405rem
-	, color: $primary
+	, color: "inherit"
 	, spacing: 0px
-	, font-weight: inherit
+	, font-weight: 500
 );
 $h4: (
 	size: 24px
 	, color: inherit
 	, spacing: 0px
-	, font-weight: inherit
+	, font-weight: 500
 );
 $h5: (
 	size: 1.0rem
 	, color: inherit
 	, spacing: 0px
-	, font-weight: inherit
+	, font-weight: 500
 );
 $h6: (
 	size: 0.7rem
 	, color: inherit
 	, spacing: 0px
-	, font-weight: inherit
+	, font-weight: 500
 );
 
 // sizing
-$gutter: 0.5rem;
+$gutter: 0.75rem;
 $hover_diff: 5%; // how much something should change by when hovered
 
 $g1: $gutter;
@@ -66,9 +92,8 @@ $g2: $gutter * 2;
 $g3: $gutter * 3;
 $g4: $gutter * 4;
 
-@mixin prefix($prop, $val) {
+@mixin prefix($prop, $val) { // EX: @include prefix(box-shadow, 0 3px 3px rgba(0,0,0,0.05)); 
 	@each $prefix in '-webkit-', '-moz-', '-ms-', '-o-', '' {
 		#{$prefix}#{$prop}: $val;
 	}
 }
-// @include prefix(box-shadow, 0 3px 3px rgba(0,0,0,0.05)); 
