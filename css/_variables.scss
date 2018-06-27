@@ -2,6 +2,7 @@
 $black: #333;
 $grey: #ddd;
 $white: #fefefe;
+$light: #F1F1F1;
 
 $primary: #337ab7;
 $secondary: #096;
@@ -25,6 +26,8 @@ $system_colors: (
 	, dark: (bg:$dark,color:$white)
 	, grey: (bg:$grey,color:$black)
 	, white: (bg:$white,color:$black)
+	, light: (bg:$light,color:$black)
+	, black: (bg:$black,color:$white)
 );
 
 /////////////////////////
@@ -53,19 +56,19 @@ $h1: (
 	, font-weight: 500
 );
 $h2: (
-	size: 2.0rem
+	size: 1.9rem
 	, color: inherit
 	, spacing: 0px
 	, font-weight: 500
 );
 $h3: (
-	size: 1.405rem
+	size: 1.6rem
 	, color: "inherit"
 	, spacing: 0px
 	, font-weight: 500
 );
 $h4: (
-	size: 24px
+	size: 1.3rem
 	, color: inherit
 	, spacing: 0px
 	, font-weight: 500
