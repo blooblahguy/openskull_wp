@@ -162,7 +162,7 @@
 @include grid_sizes('');
 
 // Small devices (landscape phones, 0px and up)
-@media (max-width: 720px) {
+@media (max-width: map-get($breakpoints, sm)) {
 	.os-sm {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 	.hidden-sm {display:none !important;}
 	.visible-sm {
@@ -175,7 +175,7 @@
 @include grid_sizes('sm', true);
 
 // Medium devices (tablets)
-@media (max-width: 1200px) and (min-width: 720px) {
+@media (max-width: map-get($breakpoints, lg)) and (min-width: map-get($breakpoints, md)) {
 	.hidden-md {display:none !important;}
 	.visible-md {
 		&, &#{-block} {display:block;}
@@ -184,13 +184,13 @@
 		&#{-none} {display:none;}
 	}
 }
-@media (min-width: 720px) {
+@media (min-width: map-get($breakpoints, md)) {
 	.os-md {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 	@include grid_sizes('md', true);
 }
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 1200px) {
+@media (min-width: map-get($breakpoints, lg)) {
 	.os-lg {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 	.hidden-lg {display:none !important;}
 	.visible-lg {

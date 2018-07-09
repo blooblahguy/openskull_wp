@@ -15,8 +15,8 @@ small { font-size: $font_sm; }
 .text-black {color:#fff;}
 
 code {background: $light; }
-pre {background: $light; overflow: auto; font-size: $font_xs;}
-code, kbd, pre, samp, pre.prettify {clear:both; font-family: monospace, monospace; display:block; padding: $gutter;}
+pre {background: $light; overflow: auto; font-size: $font_sm;}
+code, kbd, pre, samp, pre.prettify {clear:both; font-family: $font-family-monospace; display:block; padding: $gutter;}
 pre > code {display: block; padding: 0; white-space: pre;}
 
 a {text-decoration:none; color:$primary;}
@@ -42,3 +42,10 @@ p {margin-top: 0; margin-bottom: $g2;}
 ul {list-style: disc outside; padding: 0 0 $g2 $g2;}
 ol {list-style: decimal outside; padding: 0 0 $g2 $g2;}
 ol.nolist, ul.nolist {list-style:none;}
+
+a {
+	color: map-get($links, color); text-decoration: map-get($links, decoration);
+	&:hover, &:active {
+		color: map-deep-get($links, "hover", "color"); text-decoration: map-deep-get($links, "hover", "decoration");
+	}
+}

@@ -44,7 +44,7 @@ body pre.prettyprint {border: 1px solid $grey; padding: $g2;}
 		display:inline-block; position:relative;
 		a {
 			display:block; padding: $g1/3 $g2;
-			&:hover, &.active {background:rgba(0,0,0,.1);}
+			&:hover, &.active {background:rgba(0,0,0,.1); text-decoration: none;}
 		}
 
 		&:hover .sub-menu {display:block}
@@ -71,7 +71,7 @@ body pre.prettyprint {border: 1px solid $grey; padding: $g2;}
 	margin: 4px 0 8px;
 	> * {
 		display:inline-block; padding: 4px 8px; text-align:center; margin: 0 2px; color:#333; background: #ddd;
-		&:hover {background:#ccc; color: inherit;}
+		&:hover {background:#ccc; color: inherit; text-decoration:none;}
 		&.active {background:#337ab7; color:#fff;}
 	}
 	.next, .prev {
@@ -85,7 +85,7 @@ body pre.prettyprint {border: 1px solid $grey; padding: $g2;}
 		overflow:hidden; font-size:0;
 		a {
 			background: darken($grey, 4%); margin-bottom: -1px; cursor:pointer; color:$black; display:inline-block; padding: $gutter $gutter*2; font-size: 1rem;
-			&:hover, {background: $white;}
+			&:hover, {background: $white; text-decoration:none;}
 			&:active, &.active {background: $white; color:$black;}
 		}
 		a + a {border-left: 1px solid $dark_grey;}
@@ -125,22 +125,37 @@ body pre.prettyprint {border: 1px solid $grey; padding: $g2;}
 	}
 }
 
-// Tables / Input
-table, thead, tbody {width: 100%; border-spacing: 0; border-collapse: collapse; max-width:100%;}
-td {padding:6px}
+// Forms
+input, select, textarea {
+	-webkit-appearance: none; display:block; border-radius: 0; padding: $g1 $g1; margin:0; font-family:inherit; width: 100%; border: 1px solid $grey; transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out; background-clip: padding-box;
+	&:focus {border-color: $primary; outline: 0; box-shadow: 0 0 0 $gutter/4 rgba($primary, .25); }
+}
 form {
 	display:block; width: 100%;
-	input, select, textarea {display:block; width: 100%;}
+	
+	small {margin-top: $gutter/3; display:block;}
+}
+.form-md {
+	input, select, textarea {padding: $gutter/2 $gutter;}
+}
+.form-sm {
+	input, select, textarea {padding: $gutter/3 $gutter/2;}
 }
 .formsec {
 	position:relative; padding: $gutter 0;
-
-	label {
-		display:inline-block; padding-bottom:4px;;
-		span {color:red; margin: 0 4px;}
-	}
 }
-input, select, textarea {border: none; padding: $g1/2 $g1; margin:0; font-family:inherit; width: 100%;}
+
+label {
+	display:inline-block; margin-bottom: $gutter/2;
+	span {color: $danger; margin: 0 4px;}
+}
+
+
+// Tables / Input
+table, thead, tbody {width: 100%; border-spacing: 0; border-collapse: collapse; max-width:100%;}
+td {padding:6px}
+
+
 textarea {resize: vertical;}
 blockquote {border:none; border-left: 4px solid $primary; padding:$gutter*2; margin: 0; margin-bottom:$gutter;}
 
@@ -148,8 +163,8 @@ input[type="checkbox"], input[type="radio"] {width: auto; display: inline-block;
 
 // Buttons
 .btn, button, input[type="submit"], input[type="button"] {
-	background: #fff; border:1px solid #ddd; padding: 8px 20px; cursor:pointer; display:inline-block; text-align:center; box-shadow:none; width:auto; margin-bottom:$g1;
-	&:hover {background:#e6e6e6; color:#333; border-color:#aaa;}
+	background: #fff; border:1px solid #ddd; text-decoration: map-get($buttons, decoration); border-radius: map-get($buttons, radius); padding: $g1 $g2; cursor:pointer; display:inline-block; text-align:center; box-shadow:none; width:auto; margin-bottom:$g1;
+	&:hover, &:focus {background:#e6e6e6; color:#333; border-color:#aaa; text-decoration: map-deep-get($buttons, "hover", "decoration")}
 
 	@each $name, $color in $system_colors {
 		&.btn-#{$name} {
@@ -193,4 +208,9 @@ input[type="checkbox"], input[type="radio"] {width: auto; display: inline-block;
 		border-left: 4px solid transparent; padding: $g2 $g4; margin-bottom: $g2;
 		background-color: lighten(map-get($color, bg), 30%); color: darken(map-get($color, bg), 30%); border-color: map-get($color, bg);
 	}
+}
+
+.gform_confirmation_message {
+	border-left: 4px solid transparent; padding: $g2 $g4; margin-bottom: $g2;
+	background-color: lighten($success, 30%); color: darken($success, 30%); border-color: $success;
 }

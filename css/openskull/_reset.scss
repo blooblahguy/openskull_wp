@@ -4,6 +4,15 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 *::selection, *::-moz-selection {background: $primary; color: $white}
 
+// set defaults
+:root {
+	@each $name, $color in $system_colors {
+		--#{$name}: map-get($color, bg);
+	}
+	--font-family-sans-serif: #{inspect($font-family-sans-serif)};
+	--font-family-monospace: #{inspect($font-family-monospace)};
+}
+
 audio, canvas, progress, video { display: inline-block; vertical-align: baseline; }
 
 audio:not([controls]) { display: none; height: 0; }
@@ -16,13 +25,13 @@ audio:not([controls]) { display: none; height: 0; }
 
 html {font-family: sans-serif; text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; width:100%; overflow-x:hidden;}
 
-body {margin:0; width:100%; font-size: 1rem; line-height: 1.5; font-weight: 400; font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif; background:$white; color: $black; -webkit-font-smoothing: antialiased !important; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility !important; position:relative; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; image-rendering: optimizeSpeed; image-rendering: -moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: optimize-contrast; -ms-interpolation-mode: nearest-neighbor;}
+body {margin:0; width:100%; font-size: 1rem; line-height: 1.5; font-weight: 400; font-family: $font-family-sans-serif; background:$white; color: $black; -webkit-font-smoothing: antialiased !important; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility !important; position:relative; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; image-rendering: optimizeSpeed; image-rendering: -moz-crisp-edges; image-rendering: -o-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: optimize-contrast; -ms-interpolation-mode: nearest-neighbor;}
 
 
 
 // Bring baseline html functionality back
 
-sub, sup {font-size: $font_xs; line-height: 0; position: relative; vertical-align: baseline; }
+sub, sup {font-size: $font_sm; line-height: 0; position: relative; vertical-align: baseline; }
 
 sup {top: -0.5rem;}
 

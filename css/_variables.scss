@@ -1,4 +1,10 @@
-// colors
+$gutter: 0.75rem;
+$hover_diff: 5%; // how much something should change by when hovered
+$animation_speed: 0.3s;
+
+/////////////////////////
+// Colors
+/////////////////////////
 $black: #333;
 $grey: #ddd;
 $white: #fefefe;
@@ -6,6 +12,8 @@ $light: #F1F1F1;
 
 $primary: #337ab7;
 $secondary: #096;
+$tertiary: #096;
+
 $dark: #555;
 $dark_grey: #888;
 $success: #449d44;
@@ -17,6 +25,7 @@ $danger: #d9534f;
 $system_colors: (
 	primary: (bg:$primary,color:$white)
 	, secondary: (bg:$secondary,color:$white)
+	, tertiary: (bg:$tertiary,color:$white)
 	, success: (bg:$success,color:$white)
 	, info: (bg:$info,color:$black)
 	, message: (bg:$info,color:$black)
@@ -31,23 +40,31 @@ $system_colors: (
 );
 
 /////////////////////////
-// Layout
-/////////////////////////
-$layers: (
-	background: -10
-	, normal: 0
-	, medium: 50
-	, high: 100
-	, tooltip: 200
-);
-
-/////////////////////////
 // Typgraphy
 /////////////////////////
+$links: (
+	color: $primary
+	, decoration: none
+	, hover: (
+		decoration: underline
+		, color: lighten($primary, $hover_diff)
+	)
+);
+
+$buttons: (
+	decoration: none
+	, radius: 0
+	, hover: (
+		decoration: none
+	)
+);
+
+$font-family-sans-serif:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+$font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+
 $font_lg: 1.2rem;
-$font_md: 15px;
-$font_sm: 0.9rem;
-$font_xs: 0.8rem;
+$font_md: 1rem;
+$font_sm: 0.8rem;
 
 $h1: (
 	size: 2.2rem
@@ -86,17 +103,37 @@ $h6: (
 	, font-weight: 500
 );
 
-// sizing
-$gutter: 0.75rem;
-$hover_diff: 5%; // how much something should change by when hovered
+/////////////////////////
+// Layout
+/////////////////////////
+$breakpoints: ( // by min px
+	sm: 720px // max-width
+	, md: 720px // min width
+	, lg: 1200px // min width
+);
+
+$layers: (
+	background: -10
+	, normal: 0
+	, medium: 50
+	, high: 100
+	, tooltip: 200
+);
 
 $g1: $gutter;
 $g2: $gutter * 2;
 $g3: $gutter * 3;
 $g4: $gutter * 4;
 
+// functions
 @mixin prefix($prop, $val) { // EX: @include prefix(box-shadow, 0 3px 3px rgba(0,0,0,0.05)); 
 	@each $prefix in '-webkit-', '-moz-', '-ms-', '-o-', '' {
 		#{$prefix}#{$prop}: $val;
 	}
+}
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+    @return $map;
 }
