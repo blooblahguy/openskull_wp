@@ -53,7 +53,7 @@ add_action( 'widgets_init', 'atlas_sidebars' );
 function plugin_mce_css( $mce_css ) {
 	if ( !empty( $mce_css ) ) {
 		$mce_css .= ',';
-		$mce_css .= (get_template_directory_uri() . '/css/tinymce.css');
+		$mce_css .= (get_template_directory_uri() . '/css/tinymce.php');
 		return $mce_css;
 	}
 }
@@ -111,7 +111,7 @@ function atlas_add_rewrites($content) {
 
 // add custom css into admin area
 function admin_style() {
-	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/wpadmin.css');
+	wp_enqueue_style('admin-styles', get_template_directory_uri().'/css/wpadmin.php');
 }
 add_action('admin_enqueue_scripts', 'admin_style', 9999);
 

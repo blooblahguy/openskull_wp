@@ -31,3 +31,20 @@ function scrollFunc() {
 scrollFunc()
 $(window).scroll(scrollFunc)
 $(window).resize(scrollFunc)
+
+// Image dimensions
+$("[constrain]").one("load", function() {
+	var parent = $(this).parent()
+	var height = parent.outerHeight() - $(this).height();
+	var width = parent.outerWidth() - $(this).width();
+
+	if (height > width) {
+		$(this).css("max-height", "100%")
+		$(this).css("max-width", "none")
+	} else {
+		$(this).css("max-width", "100%")
+		$(this).css("max-height", "none")
+	}
+}).each(function() {
+	if(this.complete) $(this).load();
+});
