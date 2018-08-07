@@ -1,6 +1,7 @@
 <?php
 	// inclcude atlas core
 	require_once("atlas/atlas.php");
+	require_once("smtp.php");
 	
 	// include custom parts
 	include("template-parts/custom-shortcodes.php");
