@@ -2,6 +2,7 @@
 	////////////////////////////////////////////////
 	// ACF Auto Activation 
 	//////////////////////////////////////////////// 
+	/*
 	add_filter('acf/settings/load_json', 'my_acf_json_load_point');
 	function my_acf_json_load_point( $paths ) {
 		unset($paths[0]);
@@ -39,4 +40,5 @@
 			'icon_url'	 	=> "dashicons-tablet",
 		));
 	}
+	*/
 ?>

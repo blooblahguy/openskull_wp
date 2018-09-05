@@ -38,7 +38,7 @@ function remove_menus(){
 	add_menu_page("Widgets", "Widgets", "administrator", "widgets.php", '', 'dashicons-welcome-widgets-menus', 21);
 	add_menu_page("Menus", "Menus", "administrator", "nav-menus.php", '', 'dashicons-menu', 20);
 	add_submenu_page("options-general.php", "Themes", "Themes", "administrator", "themes.php");
-	add_submenu_page("options-general.php", "Custom Fields", "Custom Fields", "administrator", "edit.php?post_type=acf-field-group");
+	// add_submenu_page("options-general.php", "Custom Fields", "Custom Fields", "administrator", "edit.php?post_type=acf-field-group");
 }
 add_action( 'admin_menu', 'remove_menus');
 
