@@ -30,7 +30,9 @@
 	if (function_exists( 'acf' ) && is_admin() && !acf_pro_get_license_key() ) {
 		acf_pro_update_license($acf_key);
 	}
-
+	
+	*/
+	
 	// Add ACF Options
 	if( function_exists('acf_add_options_page') ) {
 		acf_add_options_page(array(
@@ -40,5 +42,5 @@
 			'icon_url'	 	=> "dashicons-tablet",
 		));
 	}
-	*/
+	
 ?>

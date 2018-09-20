@@ -1,7 +1,7 @@
 <?
 	// ini_set("display_errors", 1);
 	// error_reporting(E_ALL);
-	define( 'SMTP_HOST', 'server.a2hosting.com' );  // A2 Hosting server name. For example, "mi3-sr9.supercp.com"
+	define( 'SMTP_HOST', 'mi3-sr9.supercp.com' );  // A2 Hosting server name. For example, "server.a2hosting.com"
 	define( 'SMTP_AUTH', true );
 	define( 'SMTP_PORT', '465' );
 	define( 'SMTP_SECURE', 'ssl' );
