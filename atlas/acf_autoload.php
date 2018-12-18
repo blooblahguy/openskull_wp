@@ -34,13 +34,22 @@
 	*/
 	
 	// Add ACF Options
-	if( function_exists('acf_add_options_page') ) {
-		acf_add_options_page(array(
-			'page_title' 	=> 'Site Wide Content',
-			'menu_title'	=> 'Site Wide Content',
-			'menu_slug' 	=> 'site-wide-content',
-			'icon_url'	 	=> "dashicons-tablet",
-		));
-	}
+	// if( function_exists('acf_add_options_page') ) {
+	// 	acf_add_options_page(array(
+	// 		'page_title' 	=> 'Site Wide Content',
+	// 		'menu_title'	=> 'Site Wide Content',
+	// 		'menu_slug' 	=> 'site-wide-content',
+	// 		'icon_url'	 	=> "dashicons-tablet",
+	// 		'position'	 	=> 51,
+	// 	));
+
+	// 	acf_add_options_page(array(
+	// 		'page_title' 	=> 'Site Wide Content',
+	// 		'menu_title'	=> 'Site Wide Content',
+	// 		'menu_slug' 	=> 'site-wide-content',
+	// 		'icon_url'	 	=> "dashicons-tablet",
+	// 		'position'	 	=> 51,
+	// 	));
+	// }
 	
 ?>

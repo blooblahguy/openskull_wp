@@ -1,24 +1,15 @@
 <?php
 	header('Content-Type: text/css');
 
-
 	$sheets = array();
 	$sheets[] = "_variables.scss";
-	$sheets[] = "openskull/_defaults.scss";
-	$sheets[] = "openskull/_reset.scss";
-	$sheets[] = "openskull/_colors.scss";
-	$sheets[] = "openskull/_buttons.scss";
-	$sheets[] = "openskull/_typography.scss";
-	$sheets[] = "openskull/_helpers.scss";
-	$sheets[] = "openskull/_borders.scss";
-	$sheets[] = "openskull/_forms.scss";
-	$sheets[] = "openskull/_ui.scss";
-	$sheets[] = "openskull/_grid.scss";
-	$sheets[] = "style.scss";
+	$sheets[] = "admin_css.scss";
+
+	$out = "admin.min.css";
 
 	// cached updating
 	$update = false;
-	$cache_mod = filemtime("openskull.min.css");
+	$cache_mod = filemtime($out);
 	$this_mod = filemtime(__FILE__);
 	foreach ($sheets as $sheet) {
 		if (filemtime($sheet) > $cache_mod || $this_mod > $cache_mod) {
@@ -34,13 +25,14 @@
 		error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
 
 		$scss = new Compiler();
+		$scss->setSourceMap(Compiler::SOURCE_MAP_INLINE);
 		$scss->setImportPaths('');
 
 		// 1 minified
 		$scss->setFormatter('Leafo\ScssPhp\Formatter\Compressed');
 		$data = $scss->compile("@import \"".ltrim(implode("\";\n@import \"",$sheets),"\";\n")."\";");
-		file_put_contents("openskull.min.css", $data);
+		file_put_contents($out, $data);
 	}
 
-	include("openskull.min.css");
+	include($out);
 ?>

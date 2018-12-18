@@ -1,0 +1,13 @@
+body {font-family: sans-serif;}
+
+// HEADERS
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+	margin: $g2 0 $g1; line-height: $header-line-height; 
+	&:first-child {margin-top: 0;}
+}
+.h1, h1 {margin-top: 0; font-size: map-get($h1, size); color: map-get($h1, color); font-weight: map-get($h1, font-weight); }
+.h2, h2 {font-size: map-get($h2, size); color: map-get($h2, color); font-weight: map-get($h2, font-weight); }
+.h3, h3 {font-size: map-get($h3, size); color: map-get($h3, color); font-weight: map-get($h3, font-weight); }
+.h4, h4 {font-size: map-get($h4, size); color: map-get($h4, color); font-weight: map-get($h4, font-weight); }
+.h5, h5 {font-size: map-get($h5, size); color: map-get($h5, color); font-weight: map-get($h5, font-weight); }
+.h6, h6 {font-size: map-get($h6, size); color: map-get($h6, color); font-weight: map-get($h6, font-weight); }

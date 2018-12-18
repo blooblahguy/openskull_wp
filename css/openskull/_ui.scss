@@ -1,216 +1,153 @@
 ////////////////////////////////////////////
 // UI Elements
 ////////////////////////////////////////////
-body pre.prettyprint {border: 1px solid $grey; padding: $g2;}
-
-// Borders
-.bord {
-	border: 1px solid $grey;
-	&#{t}, &#{tb} {
-		&#{0} {border-top:none;}
-		&#{1} {border-top-width: 1px; }
-		&#{2} {border-top-width: 2px; }
-	}
-	&#{r}, &#{rl} {
-		&#{0} {border-right:none;}
-		&#{1} {border-right-width: 1px; }
-		&#{2} {border-right-width: 2px; }
-	}
-	&#{b}, &#{tb} {
-		&#{0} {border-bottom:none;}
-		&#{1} {border-bottom-width: 1px; }
-		&#{2} {border-bottom-width: 2px; }
-	}
-	&#{l}, &#{lr} {
-		&#{0} {border-left:none;}
-		&#{1} {border-left-width: 1px; }
-		&#{2} {border-left-width: 2px; }
-	}
-}
-@each $name, $color in $system_colors {
-	.bord-{border: 1px solid map-get($color, bg);}
-}
-.round {
-	&#{-1} {border-radius: $g1;}
-	&#{-2} {border-radius: $g2;}
-	&#{-3} {border-radius: $g3;}
-	&#{-4} {border-radius: $g4;}
-}
-
-// Navigation
-.os-menu {
-	position:relative; display:block; list-style:none; padding:0;
-	li {
-		display:inline-block; position:relative;
-		a {
-			display:block; padding: $g1/3 $g2;
-			&:hover, &.active {background:rgba(0,0,0,.1); text-decoration: none;}
-		}
-
-		&:hover .sub-menu {display:block}
-	}
-	&.stacked {
-		.sub-menu {
-			padding:0;
-			a {padding-left: $g3; font-size:0.8rem;}
-		}
-		li {display:block;}
-	}
-	
-	&.dropdowns {
-		.sub-menu {
-			display:none; position:absolute; top:100%; left:50%; transform: translate(-50%, 0); width: 200px; z-index:100; background:#fff; color:#333; border:1px solid #ddd;
-			li {display:block;}
-			a {color:#333;}
-		}
-	}
-}
 
 // Pagination
 .pagination {
-	margin: 4px 0 8px;
-	> * {
-		display:inline-block; padding: 4px 8px; text-align:center; margin: 0 2px; color:#333; background: #ddd;
-		&:hover {background:#ccc; color: inherit; text-decoration:none;}
-		&.active {background:#337ab7; color:#fff;}
-	}
-	.next, .prev {
-		&:hover {background:#ccc; color:#333;}
+	margin: $g1 0 $g2;
+	& > * + * {margin-left: 4px;}
+	& > * {
+		display:inline-block; padding: $g1 / 4 $g2; text-align:center; color: $black; border: 1px solid #ddd;
+		&:hover {color: $black; background: darken($pure_white, $hover_diff); text-decoration:none;}
+		&.active {background:$primary; border-color: $primary; color:$white; cursor: default; }
 	}
 }
 
 // Tabs
 .tabs {
 	.tab_nav {
-		overflow:hidden; font-size:0;
+		overflow:hidden; font-size:0; list-style:none; margin-bottom: -1px;
+		li {display:inline-block;}
 		a {
-			background: darken($grey, 4%); margin-bottom: -1px; cursor:pointer; color:$black; display:inline-block; padding: $gutter $gutter*2; font-size: 1rem;
-			&:hover, {background: $white; text-decoration:none;}
-			&:active, &.active {background: $white; color:$black;}
+			font-size: 1rem; border-bottom: 4px solid transparent; cursor:pointer; color:$black; display:inline-block; padding: $g1 $g2;
+			&:hover {background: darken($pure_white, $hover_diff); text-decoration:none; border-color: $grey;}
+			&:active, &:focus, &.active {border-color: $primary; color:$black;}
 		}
-		a + a {border-left: 1px solid $dark_grey;}
+		a + a {margin-left: $g1;}
 	}
 
 	.tab_content {
-		display:none; padding: $g1; background: $white;
-		&.active {display:block;}
+		@extend .bord; display:none; padding: $g3;
+		&.active, &:target {display:block;}
 	}
 }
 
 // Tooltips
 [tooltip] {
-	position: relative;
-	&:hover:before, &:active:before { content: attr(tooltip); position: absolute; border:1px solid darken($black, $hover_diff); z-index:100; max-width:300px; top: 0; left: 50%; transform: translate(-50%, -100%); background: $black; color: $white; font-size: 12px; padding: 6px 16px;}
-	&:hover:after, &:active:after {content: ''; position:absolute; top: 0; left: 50%; width: 10px; height: 10px; transform: translate(-50%, -50%) rotate(45deg); background: $black; border:1px solid darken($black, $hover_diff); border-top: none; border-left:none; }
-}
+	$background: $black;
 
-//search
-.os-search-submit {
-	background:none; border:none; color:inherit; opacity: 0.8;
-	&:hover {background: none; border:none; opacity:1;}
+	$notch_size: 5px;
+	$offset: 10px;
+	$body_pos: calc(100% + #{$notch_size});
+	$notch_pos: calc(100%);
+	
+	position:relative;
+	&::before, &::after {position: absolute; z-index: 100; opacity:1; left:50%;}
+	// Body
+	&:before {bottom: $body_pos; transform: translate(-50%, 0); max-width:300px; min-width: calc(100% + #{$g4 * 2}); background: $background; color: $white; padding: $g1 $g2; pointer-events: none; text-align: center; font-size: 0.9rem;}
+	// Notch
+	&:after {bottom: $notch_pos; transform: translate(-50%, -50%) rotate(45deg); height: $notch_size; width: $notch_size; background: $background; }
+
+	&[tooltip-right] {
+		&:before {transform: translate(0, -50%); top: 50%; right: auto; bottom: auto; left: $body_pos; }
+		&:after {transform: translate(50%, -50%) rotate(45deg); top: 50%; right: auto; bottom: auto; left: $notch_pos;}
+	}
+	&[tooltip-bottom] {
+		&:before {transform: translate(-50%, 0); top: $body_pos; right: auto; bottom: auto; left: 50%; }
+		&:after {transform: translate(-50%, 50%) rotate(45deg); top: $notch_pos; right: auto; bottom: auto; left: 50%;}
+	}
+	&[tooltip-left] {
+		&:before {transform: translate(0, -50%); top: 50%; right: $body_pos; bottom: auto; left: auto; }
+		&:after {transform: translate(-50%, -50%) rotate(45deg); top: 50%; right: $notch_pos; bottom: auto; left: auto;}
+	}
+
+	&:hover, &:active {
+		&:before {content: attr(tooltip); }
+		&:after {content: ''; }
+	}
+
 }
 
 // Modal
 .modal {
-	position:fixed; top:0; left:0; right:0; width:100%; height:30%; background: $white; z-index:100; color:$black; padding: 20px;
-	.container {position:relative;}
-	&::before {
-		content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 1000%; z-index: -1; background:rgba(0,0,0,.6);
-	}
-	.close {
-		font-size:30px; position:absolute; top: 0; right: 0; cursor: pointer; opacity: 0.8; padding:4px; height: 20px; width: 20px;
-		&:before {content: ''; transform: translate(-50%, -50%) rotate(45deg); width: 100%; height: 3px; position:absolute; top: 50%; left: 50%; background: $black; }
-		&:after {content: ''; transform: translate(-50%, -50%) rotate(-45deg); width: 100%; height: 3px; position:absolute; top: 50%; left: 50%; background: $black; }
-		&:hover {opacity:1;}
-	}
-}
-
-// Forms
-input, select, textarea {
-	-webkit-appearance: none; display:block; border-radius: 0; padding: $g1 $g1; margin:0; font-family:inherit; width: 100%; border: 1px solid $grey; transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out; background-clip: padding-box;
-	&:focus {border-color: $primary; outline: 0; box-shadow: 0 0 0 $gutter/4 rgba($primary, .25); }
-}
-form {
-	display:block; width: 100%;
-	
-	small {margin-top: $gutter/3; display:block;}
-}
-.form-md {
-	input, select, textarea {padding: $gutter/2 $gutter;}
-}
-.form-sm {
-	input, select, textarea {padding: $gutter/3 $gutter/2;}
-}
-.formsec {
-	position:relative; padding: $gutter 0;
-}
-
-label {
-	display:inline-block; margin-bottom: $gutter/2;
-	span {color: $danger; margin: 0 4px;}
-}
-
-
-// Tables / Input
-table, thead, tbody {width: 100%; border-spacing: 0; border-collapse: collapse; max-width:100%;}
-td {padding:6px}
-
-
-textarea {resize: vertical;}
-blockquote {border:none; border-left: 4px solid $primary; padding:$gutter*2; margin: 0; margin-bottom:$gutter;}
-
-input[type="checkbox"], input[type="radio"] {width: auto; display: inline-block; position:relative; top: 2px; margin: 0 4px;}
-
-// Buttons
-.btn, button, input[type="submit"], input[type="button"] {
-	background: #fff; border:1px solid #ddd; text-decoration: map-get($buttons, decoration); border-radius: map-get($buttons, radius); padding: $g1 $g2; cursor:pointer; display:inline-block; text-align:center; box-shadow:none; width:auto; margin-bottom:$g1;
-	&:hover, &:focus {background:#e6e6e6; color:#333; border-color:#aaa; text-decoration: map-deep-get($buttons, "hover", "decoration")}
-
-	@each $name, $color in $system_colors {
-		&.btn-#{$name} {
-			color: map-get($color, color); background-color: map-get($color, bg); border-color: darken(map-get($color, bg), $hover_diff);
-			&:hover {color: map-get($color, color); background-color: lighten(map-get($color, bg), $hover_diff); border-color: map-get($color, bg);}
+	display:none; padding: $g2; position:fixed; @include prefix(transform, translateY(-50%)); top:50%; left:0; right:0; width:100%; z-index: $z-high; max-height:100%;
+	&:target {display:block;}
+	.modal_body {@extend .container; color: $black; padding: $g2; background: $white; position: relative; box-shadow: 0 0 $g4 rgba($black, .35); max-height:100%; }
+	.modal_bg, &:before {cursor:default; position: fixed; top: -50vh; bottom: -50vh; left: -25%; right: -25%; z-index: $z-bg;}
+	&:before { content: ''; background:rgba(0,0,0,.6);}
+	.modal_close {
+		font-size: $g3; position:absolute; top: -$g2; right: -$g2; cursor: pointer; height: $g4; width: $g4; background: $grey; border-radius: 50%; 
+		&:before, &:after {
+			content: ''; width: 50%; height: 3px; position:absolute; top: 50%; left: 50%; background: $black; 
+		}
+		&:before {transform: translate(-50%, -50%) rotate(45deg); }
+		&:after {transform: translate(-50%, -50%) rotate(-45deg); }
+		&:hover {
+			background: $black;
+			&:before, &:after {background:$white;}
 		}
 	}
+	&:after {@extend .clear;}
+}
+
+
+// TABLES
+table, thead, tbody {width: 100%; border-spacing: 0; border-collapse: collapse; max-width:100%; margin-bottom:$g2;}
+table tr {border-bottom: 1px solid $grey;}
+table th { @extend .caps; @extend .text-left; @extend .h5; }
+table th, table td { padding: $g1; word-wrap: normal; line-height: 1; }
+table.odd tbody tr:nth-child(odd), table.even tbody tr:nth-child(even) {background: rgba($black, .04)}
+table.bordered td {border:1px solid $grey;}
+table.noborder tr {border:none;}
+
+// MENUS
+.os_menu {
+	list-style: none; padding: 0; margin: 0; right:0;
+	li {
+		display:inline-block; position: relative; 
+		& > a {display:block; padding: $g1 $g2; border-bottom:4px solid transparent; font-weight: $font-weight-bold; }
+		&.active > a {border-color: $primary;}
+		&:hover > .sub-menu {display:block;}
+	}
 	
-	&.btn-link {
-		border-color:transparent; background-color:transparent; box-shadow:none; color: $primary;
-		&:hover {color: darken($primary, $hover_diff); text-decoration: underline; background-color: transparent;}
-	}
-
-	&.btn-lg {font-size:18px;}
-	&.btn-sm {font-size:12px; padding: 6px 10px;}
-	&.btn-xs {font-size:10px; padding: 3px 6px;}
-}
-
-// text colors
-@each $name, $color in $system_colors {
-	.text-#{$name} {
-		color: map-get($color, bg);
-		&a:hover, &a:focus {color: lighten(map-get($color, bg), $hover_diff);}
+	.sub-menu {
+		display:none; padding:0; position: absolute; top: 100%; left: 50%; @include prefix(transform, translateX(-50%)); width: 200px; max-width: 80vw; z-index: $z-high; background: inherit; background: $grey;
+		li {display:block;}
+		li:hover {background: rgba($black, .25)}
+		a {display:block; padding: $g1 $g2;}
 	}
 }
+.os_menu_button {
+	display:none; float:right; text-align:right; border:none; padding:0; margin: 0; width: $g3; line-height: 0; font-size:0;
 
-// backgrounds
-@each $name, $color in $system_colors {
-	.bg-#{$name} {
-		background-color: map-get($color, bg); color: map-get($color, color);
-		a {color: map-get($color, color); }
-		&a:hover, &a:focus {background-color: lighten(map-get($color, bg), $hover_diff);}
+	span { height: 3px; width: 100%; background: $black; display: block;}
+	span + span {margin-top:4px;}
+
+	&.close {
+		text-align:center; display:none; padding:4px;
+		span {opacity:0; background: $primary; transform-origin: center; margin:0; }
+		span:first-child {opacity:1; transform: rotate(-45deg); margin-top: 3px; }
+		span:last-child {opacity:1; transform: rotate(45deg); margin-top: -3px; margin-bottom: 3px; }
 	}
 }
 
-.bg-none {background:none; color:inherit;}
-
-// messages
-@each $name, $color in $system_colors {
-	.message-#{$name} {
-		border-left: 4px solid transparent; padding: $g2 $g4; margin-bottom: $g2;
-		background-color: lighten(map-get($color, bg), 30%); color: darken(map-get($color, bg), 30%); border-color: map-get($color, bg);
+@media (max-width: $viewport-lg) {
+	$menu_width: 200px !important;
+	.wrapper, .os_menu {position: relative; right:0; left: 0; @include prefix(transition, right $animation-speed ease-in-out, left $animation-speed ease-in-out);}
+	.os_menu_button.open {display: block; }
+	.os_menu {
+		position: fixed; top: 0; height: 100vh; width: $menu_width; max-width: $menu_width; right: -100%; left:auto;
+		li {display:block;}
+		a {display:block;}
 	}
-}
+	// Pure CSS hamburger menu, just add #body to body
+	#body:target, body.mobile_toggle {
+		.os_menu_button.open {display:none;}
+		.os_menu_button.close {display:block;}
 
-.gform_confirmation_message {
-	border-left: 4px solid transparent; padding: $g2 $g4; margin-bottom: $g2;
-	background-color: lighten($success, 30%); color: darken($success, 30%); border-color: $success;
+		
+
+		.os_menu {right:0;}
+		.wrapper {right: $menu_width; left:-$menu_width;}
+	}
 }

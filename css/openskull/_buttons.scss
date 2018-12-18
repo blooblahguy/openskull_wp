@@ -1,0 +1,23 @@
+// Buttons
+%btn-base {
+	background: transparent; text-decoration:none; border: 1px solid $grey; padding: $g1 $g2; cursor:pointer; text-align:center; box-shadow:none; display:inline-block; color:$black; font-weight:bold;
+	&:hover, &:focus {text-decoration:none; color: contrast(darken($white, $hover_diff)); background: darken($white, $hover_diff); border-color: darken($grey, $hover_diff);}
+
+	&#{-btn-lg}, &.btn-lg {font-size: 1.303rem; padding: $g2 $g4; }
+	&#{-btn-sm}, &.btn-sm {font-size: .707rem; padding: $g1 / 3 $g1; }
+}
+
+.btn, a.btn, button, input[type="submit"], input[type="button"] {
+	@extend %btn-base;
+}
+
+@each $name, $color in $system_colors {
+	.btn-#{$name}, input.btn-#{$name}, a.btn-#{$name} {
+		@extend %btn-base;
+		$bg: map-get($color, bg);
+		color: contrast($bg); background: $bg; border-color: darken($bg, $hover_diff);
+		&:hover, &:focus {color: contrast(lighten($bg, $hover_diff)); background-color: lighten($bg, $hover_diff); border-color: $bg;}
+	}
+}
+
+.btn-blank, .btn-blank:hover {@extend %btn-base; border:none;  color: inherit; }

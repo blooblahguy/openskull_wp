@@ -7,55 +7,53 @@
 if ( post_password_required() ) {
 	return;
 }
+if (! comments_open() && ! get_comments_number() ) {
+	return;
+}
 ?>
-
-<div id="comments" class="comments-area">
-
-	<?php
-	// You can start editing here -- including this comment!
-	if ( have_comments() ) { ?>
-		<h2 class="comments-title">
+<div id="comments" class="comments-area section dark">
+	<?php //the_comments_navigation(); ?>
+	<div class="post_nav row">
+		<div class="os">
+			<? previous_post_link(); ?>
+		</div>
+		<div class="os text-right">
+			<? next_post_link(); ?>
+		</div>
+	</div>
+	<?php if ( have_comments() ) { ?>
+		<h3>Discussion</h3>
+		<div class="comment-list ">
 			<?php
-			$comment_count = get_comments_number();
-			if ( 1 === $comment_count ) {
-				printf(
-					/* translators: 1: title. */
-					esc_html_e( 'One thought on &ldquo;%1$s&rdquo;', 'atlas' ),
-					'<span>' . get_the_title() . '</span>'
-				);
-			} else {
-				printf( // WPCS: XSS OK.
-					/* translators: 1: comment count number, 2: title. */
-					esc_html( _nx( '%1$s thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', $comment_count, 'comments title', 'atlas' ) ),
-					number_format_i18n( $comment_count ),
-					'<span>' . get_the_title() . '</span>'
-				);
+			function comment_display($comment, $args, $depth) { 
+				$author_id = $comment->user_id;
+				$class = getClassFromUser($author_id);
+				?>
+
+				<div id="comment-<?php comment_ID() ?>" class="comment row">
+					<div class="os-min avatar"><? echo get_avatar( $comment, 24 ); ?></div>
+					<div class="os-min datetime"><? echo get_comment_time(); ?></div>
+					<div class="os-min name <? echo $class; ?>"><? echo get_comment_author(); ?></div>
+					<div class="os message"><? comment_text(); ?></div>
+					<div class="os-min text-right edit"><? echo edit_comment_link(); ?></div>
+				</div>
+				<?
 			}
-			?>
-		</h2><!-- .comments-title -->
 
-		<?php the_comments_navigation(); ?>
+			echo strip_tags(wp_list_comments( array(
+				'callback' => "comment_display"
+			)), "<p><a><blockquote><div><img>"); ?>
+		</div>
+		<?
+	}
 
-		<ol class="comment-list">
-			<?php
-				wp_list_comments( array(
-					'style'      => 'ol',
-					'short_ping' => true,
-				) );
-			?>
-		</ol><!-- .comment-list -->
-
-		<?php the_comments_navigation();
-
-		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open() ) { ?>
-			<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'atlas' ); ?></p>
-		<?php
-		}
-
-	} // Check for have_comments().
-
-	comment_form();
+	comment_form(array(
+		"logged_in_as" => "",
+		"title_reply" => "",
+		"comment_field" => '<input id="comment" name="comment" class="comment_input" aria-required="true" required="true" placeholder="Discuss #'.sanitize_title(get_the_title()).'" />',
+		"label_submit" => "&raquo;",
+		"must_log_in" => '<p class="must-log-in">You must be <a href="/login">logged in</a> to post a comment.</p>',
+	));
 	?>
 
-</div><!-- #comments -->
+</div>
