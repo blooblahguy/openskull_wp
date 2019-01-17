@@ -10,8 +10,7 @@
 		</div>
 	</div>
 	<script type="text/javascript" src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="/js/scripts.js"></script>
-	
 	<? wp_footer(); ?>
+	<script type="text/javascript" src="/js/scripts.js"></script>
 </body>
 </html>

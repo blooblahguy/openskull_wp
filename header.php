@@ -16,16 +16,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
-	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+	<!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">  -->
 
 	<title><? wp_title(); ?></title>
 
-	<?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
+	<?php if ( is_single() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
 	<? wp_head(); ?>
-	
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="/css/style.php"/>
 
+	<link rel="stylesheet" href="/css/style.php"/>
 	<link rel="shortcut icon" href="/img/favicon.png?" type="image/x-icon" />
 </head>
 <body <?php body_class(); ?>>

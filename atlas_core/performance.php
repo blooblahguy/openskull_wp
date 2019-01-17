@@ -3,26 +3,30 @@
 ////////////////////////////////////////////////
 // Tweaks
 ////////////////////////////////////////////////
-// optimize
+// optimize acf
+add_filter('acf/settings/remove_wp_meta_box', '__return_true');
 
-	remove_action( 'wp_head', 'feed_links_extra', 3 );                      // Category Feeds
-	remove_action( 'wp_head', 'feed_links', 2 );                            // Post and Comment Feeds
-	remove_action( 'wp_head', 'rsd_link' );                                 // EditURI link
-	remove_action( 'wp_head', 'wlwmanifest_link' );                         // Windows Live Writer
-	remove_action( 'wp_head', 'index_rel_link' );                           // index link
-	remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );              // previous link
-	remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );               // start link
-	remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );   // Links for Adjacent Posts
-	remove_action( 'wp_head', 'wp_generator' );                             // WP version
-	remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0); // Display relational links for the posts adjacent to the current post.
-	remove_action('wp_head', 'rel_canonical');
-	remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+// optimize wp
+remove_action( 'wp_head', 'feed_links_extra', 3 );                      // Category Feeds
+remove_action( 'wp_head', 'feed_links', 2 );                            // Post and Comment Feeds
+remove_action( 'wp_head', 'rsd_link' );                                 // EditURI link
+remove_action( 'wp_head', 'wlwmanifest_link' );                         // Windows Live Writer
+remove_action( 'wp_head', 'index_rel_link' );                           // index link
+remove_action( 'wp_head', 'parent_post_rel_link', 10, 0 );              // previous link
+remove_action( 'wp_head', 'start_post_rel_link', 10, 0 );               // start link
+remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0 );   // Links for Adjacent Posts
+remove_action( 'wp_head', 'wp_generator' );                             // WP version
+remove_action('wp_head', 'adjacent_posts_rel_link', 10, 0); // Display relational links for the posts adjacent to the current post.
+remove_action('wp_head', 'rel_canonical');
+remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+remove_action('welcome_panel', 'wp_welcome_panel'); // remove welcome display that encourages users to break their perfectly good site
+remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); // remove front end emojis
+remove_action( 'wp_print_styles', 'print_emoji_styles' ); // remove front end emojis
 
-	if (! is_admin()) {
-		wp_deregister_script('jquery');                                     // De-Register jQuery
-		wp_register_script('jquery', '', '', '', true);                     // Register as 'empty', because we manually insert our script in header.php
-	}
-
+if (! is_admin()) {
+	wp_deregister_script('jquery');                                     // De-Register jQuery
+	wp_register_script('jquery', '', '', '', true);                     // Register as 'empty', because we manually insert our script in header.php
+}
 
 // Remove things from the admin sidebar that will let them break the site
 function remove_menus(){
