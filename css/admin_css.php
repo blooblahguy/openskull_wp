@@ -1,5 +1,5 @@
 <?php
-	$out_file = "admin.min.css";
+	$out_file = "dist/admin.min.css";
 
 	$sheets = array();
 	$sheets[] = "_variables.scss";

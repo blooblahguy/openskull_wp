@@ -1,7 +1,7 @@
 
 // Grid containers
 .container {max-width: 1200px;}
-.section {padding: $g2 0;}
+.section {padding-top: $g2; padding-bottom: $g2; }
 
 .container, .container-fluid {
 	margin-left: auto; margin-right:auto; width: 100%; padding-left: $g2; padding-right: $g2;
@@ -18,22 +18,12 @@
 	&.g4 {margin-left: -$g4; margin-right: -$g4; }
 }
 
-// Flex element ordering
-.order-first { -webkit-box-ordinal-group: 0; -ms-flex-order: -1; order: -1;}
-@for $i from 1 through 6 {
-	.order-#{$i} {-webkit-box-ordinal-group: $i + 1; -ms-flex-order: $i; order: $i;}
-}
-.order-last { -webkit-box-ordinal-group: 8; -ms-flex-order: 7; order: 7;}
-
 // Full grid mixin
 @mixin grid_sizes($name, $size: false) {
 	// shortcuts
 	$prefix: '';
 	@if $size {$prefix: #{$name}-;}
 	@if $size {$name: -#{$name};}
-
-	// grid main
-	.os#{$name} {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 	
 	// typography
 	.#{$prefix}text-left {text-align:left;}
@@ -55,9 +45,16 @@
 	.#{$prefix}content-space { -ms-flex-pack: distribute; justify-content: space-evenly; }
 	.#{$prefix}content-justify {-webkit-box-pack: justify; -ms-flex-pack: justify; justify-content: space-between;}
 
+	// Flex element ordering
+	.#{$prefix}order-first { -webkit-box-ordinal-group: 0; -ms-flex-order: -1; order: -1;}
+	@for $i from 1 through 6 {
+		.#{$prefix}order-#{$i} {-webkit-box-ordinal-group: $i + 1; -ms-flex-order: $i; order: $i;}
+	}
+	.#{$prefix}order-last { -webkit-box-ordinal-group: 8; -ms-flex-order: 7; order: 7;}
+
 	// visible and hidden at minimum size
-	.hidden#{$name} {display:none;}
-	.display#{$name} {
+	.#{$prefix}hidden {display:none;}
+	.#{$prefix}display {
 		&, &#{-block} {display:block;}
 		&#{-inline} {display:inline;}
 		&#{-inline-block} {display:inline-block;}
@@ -71,6 +68,7 @@
 	.g4 > [class*="os#{$name}"] {padding: $g4;}
 
 	// grid dimensions
+	.os#{$name} {-ms-flex-preferred-size: 0; flex-basis: 0; -webkit-box-flex: 1; -ms-flex-positive: 1; flex-grow: 1; max-width: 100%;}
 	@for $i from 1 through 12 {
 		.os#{$name}#{-$i} {max-width: (100% / 12) * $i; -ms-flex: 0 0 (100% / 12) * $i; flex: 0 0 (100% / 12) * $i; width: 100%; }
 	}
@@ -107,19 +105,11 @@
 @include grid_sizes('');
 
 // Medium devices (tablets, 768px and up)
-@media (min-width: $viewport-md) {
+@media (min-width: $viewport_md) {
 	@include grid_sizes('md', true);
-}
-// Medium devices (tablets, 768px and down)
-@media (max-width: $viewport-md) {
-	html {font-size: $font-size-md}
 }
 
 // Large devices (desktops, 1024px and up)
-@media (min-width: $viewport-lg) {
+@media (min-width: $viewport_lg) {
 	@include grid_sizes('lg', true);
-}
-// Large devices (desktops, 1024px and down)
-@media (max-width: $viewport-lg) and (min-width: $viewport-md) {
-	html {font-size: $font-size-lg}
 }

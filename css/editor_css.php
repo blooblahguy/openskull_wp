@@ -1,7 +1,7 @@
 <?php
 	header('Content-Type: text/css');
 
-	$out_file = "edtitor.min.css";
+	$out_file = "dist/edtitor.min.css";
 
 	$sheets = array();
 	$sheets[] = "_variables.scss";

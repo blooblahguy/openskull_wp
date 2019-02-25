@@ -112,20 +112,6 @@ function var_template_include( $t ){
 	return $t;
 }
 
-// pulls id out of youtube url
-function getYoutubeID($link) {
-	$matches = array();
-	
-	preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu‌​\.be\/|youtube\.com\‌​/(?:(?:watch)?\?(?:.‌​*&)?v(?:i)?=|(?:embe‌​d|v|vi|user)\/))([^\‌​?#&\"'>]+)/", $url, $matches);
-	
-	return $matches[1];
-}
-
-// pulls id out of vimeo url
-function getVimeoID($link) {
-	return substr(parse_url($link, PHP_URL_PATH), 1);
-}
-
 // Removed wordpress logo on top bar
 add_action( 'admin_bar_menu', 'remove_wp_logo', 999 );
 function remove_wp_logo( $wp_admin_bar ) {

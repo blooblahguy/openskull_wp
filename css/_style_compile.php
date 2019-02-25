@@ -4,8 +4,6 @@
 	ini_set("display_errors", 1);
 	error_reporting(E_ALL);
 
-	$out_file = "dist/$out_file";
-
 	// cached updating
 	$update = false;
 	$cache_mod = filemtime($out_file);
