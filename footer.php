@@ -5,7 +5,7 @@
 			&copy; <? echo Date("Y")." "; echo bloginfo("name"); ?> - All rights reserved
 			<div class="clear"></div>
 			<div class="cpc_credit text-center text-sm em text-muted">
-				Website crafted by <a href="http://www.claypotcreative.com">Claypot Creative</a>.
+				Website crafted by <a href="http://www.reforgecreative.com">Reforge Creative</a>.
 			</div>
 		</div>
 	</div>

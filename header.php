@@ -22,7 +22,7 @@
 
 	<?php if ( is_single() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
 	<? wp_head(); ?>
-
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="/css/style.php"/>
 	<link rel="shortcut icon" href="/img/favicon.png?" type="image/x-icon" />
 </head>

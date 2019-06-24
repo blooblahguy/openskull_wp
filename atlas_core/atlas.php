@@ -3,7 +3,7 @@ ini_set("display_errors", 1);
 error_reporting(E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_USER_ERROR);
 
 require_once("helpers.php"); // smtp auto configuration
-require_once("smtp.php"); // smtp auto configuration
+// require_once("smtp.php"); // smtp auto configuration
 require_once("theme_support.php"); // 
 require_once("performance.php"); // 
 require_once("images.php"); // 
@@ -12,13 +12,13 @@ require_once("search.php"); //
 // require_once("mega/mega.php"); // 
 
 // stop logged non admin users from accessing dashboard
-add_action( 'admin_init', 'bdg_block_dashboard_access', 2 );
-function bdg_block_dashboard_access() {
-	if ( !current_user_can( 'admin_access' ) && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
-		wp_redirect( home_url() );
-		exit;
-	}
-}
+// add_action( 'admin_init', 'bdg_block_dashboard_access', 2 );
+// function bdg_block_dashboard_access() {
+// 	if ( !current_user_can( 'admin_access' ) && ( !defined( 'DOING_AJAX' ) || !DOING_AJAX ) ) {
+// 		wp_redirect( home_url() );
+// 		exit;
+// 	}
+// }
 
 
 ////////////////////////////////////////////////
@@ -65,7 +65,7 @@ function my_custom_dashboard_widgets() {
 	remove_action('welcome_panel','wp_welcome_panel');
 }
 function custom_dashboard_help() { // custom dashboard widget
-	echo '<p>Need help? Contact us at <a href="http://www.claypotcreative.com">ClayPotCreative.com</a>.</p>';
+	echo '<p>Need help? Contact us at <a href="http://www.reforgecreative.com">ReforgeCreative.com</a>.</p>';
 }
 add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets'); // add help link in dashboard
 
